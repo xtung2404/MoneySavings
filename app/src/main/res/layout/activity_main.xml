@@ -9,11 +9,10 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.viewpager2.widget.ViewPager2
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/viewpager"/>
-
+            android:layout_height="match_parent"
+            android:id="@+id/frame_layout"/>
     </androidx.core.widget.NestedScrollView>
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
