@@ -38,7 +38,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         Plan mPlan = mPlans.get(position);
         holder.txtPlanName.setText(mPlan.getTenKeHoach());
         holder.txtPlanMoney.setText(String.valueOf(mPlan.getHanMuc()));
-        holder.txtPlanDateEnd.setText(mPlan.getThoiGianKetThuc());
     }
 
     @Override
@@ -53,7 +52,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             super(itemView);
             txtPlanName = itemView.findViewById(R.id.txtPlanName);
             txtPlanMoney = itemView.findViewById(R.id.txtPlanMoney);
-            txtPlanDateEnd = itemView.findViewById(R.id.txtPlanDateEnd);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

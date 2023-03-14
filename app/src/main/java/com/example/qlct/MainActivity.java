@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mBottomNavigationView = findViewById(R.id.bottomNagivationView);
-        mBottomNavigationView.setBackground(null);
         replaceFragment(new PlanFragment());
     }
 

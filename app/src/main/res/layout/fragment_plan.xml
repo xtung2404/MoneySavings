@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.PlanFragment"
     android:orientation="vertical"
-    android:background="@color/gray">
+    android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,28 +27,33 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_add"
-                android:text="Thêm"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_button"
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginRight="10dp"
-                android:paddingLeft="10dp"
                 android:layout_gravity="center_vertical"
-                android:scaleType="fitCenter"
-                android:id="@+id/btnAddPlan"/>
+                android:scaleType="centerInside"
+                android:id="@+id/btnAddPlan"
+                android:src="@drawable/ic_add"
+                android:background="@drawable/bg_button"/>
     </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/gray"
-            android:layout_marginTop="5dp"/>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_KeHoach"
-        android:background="@color/white"/>
+        android:background="@drawable/bg_topleft_topright"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:tabSelectedTextColor="@color/color_item_tab"
+        app:tabBackground="@drawable/bg_button"
+        app:tabIndicatorHeight="0dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvKeHoach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 </LinearLayout>

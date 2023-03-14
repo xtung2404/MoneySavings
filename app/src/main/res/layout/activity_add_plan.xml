@@ -34,13 +34,15 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Lưu"
                 android:background="@drawable/bg_button"
-                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginRight="10dp"
@@ -73,7 +75,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_purse"
-            android:scaleType="centerInside"/>
+            android:background="@drawable/bg_circle"
+            android:scaleType="centerInside"
+            android:clipToOutline="true"
+            android:backgroundTint="@color/orange"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +102,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_date_start"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@color/orange"/>
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -117,7 +124,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_date_end"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@color/orange"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -137,7 +146,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_note"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:clipToOutline="true"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@color/orange"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
