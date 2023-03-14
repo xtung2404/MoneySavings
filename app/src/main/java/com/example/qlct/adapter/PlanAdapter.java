@@ -26,6 +26,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         layoutInflater = LayoutInflater.from(context);
     }
 
+    public void setListPlan(ArrayList<Plan> plans) {
+        mPlans = plans;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

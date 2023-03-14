@@ -65,8 +65,6 @@ public class PlanFragment extends Fragment {
         mFinishedPlans.add(mPlan2);
         mUnfinishedPlans.add(mPlan);
         mUnfinishedPlans.add(mPlan1);
-//        mPlanAdapter = new PlanAdapter(getContext(), mFinishedPlans, mOnClickListener);
-//        rvKeHoach.setAdapter(mPlanAdapter);
 
 
         btnAddPlan.setOnClickListener(new View.OnClickListener() {
@@ -85,14 +83,11 @@ public class PlanFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getText() == "Chưa hoàn thành") {
-                    mPlanAdapter = new PlanAdapter(getContext(), mUnfinishedPlans, mOnClickListener);
-                    rvKeHoach.setAdapter(mPlanAdapter);
+                    mPlanAdapter.setListPlan(mUnfinishedPlans);
                 }
                 else {
-                    mPlanAdapter = new PlanAdapter(getContext(), mFinishedPlans, mOnClickListener);
-                    rvKeHoach.setAdapter(mPlanAdapter);
+                    mPlanAdapter.setListPlan(mFinishedPlans);
                 }
-                rvKeHoach.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override

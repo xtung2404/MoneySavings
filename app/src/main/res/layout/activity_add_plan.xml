@@ -10,10 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -36,130 +38,99 @@
                 android:layout_marginBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:textStyle="bold"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Lưu"
-                android:background="@drawable/bg_button"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/orange"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="fitCenter"
-                android:id="@+id/btnAddPlan"/>
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/gray"/>
-    </LinearLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Tên kế hoạch"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:background="@color/white"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_purse"
-            android:background="@drawable/bg_circle"
-            android:scaleType="centerInside"
-            android:clipToOutline="true"
-            android:backgroundTint="@color/orange"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp">
+            android:hint="Tên kế hoạch"
+            android:layout_margin="10dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Hạn mức"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:background="@color/white"/>
+                android:layout_height="70dp"
+                android:background="@drawable/bg_borders"/>
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="10dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_date_start"
-            android:scaleType="centerInside"
-            android:background="@drawable/bg_circle"
-            android:backgroundTint="@color/orange"/>
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:hint="Chọn ngày bắt đầu"
-            android:paddingLeft="15dp"
-            android:gravity="center_vertical"
-            android:id="@+id/txtChonNgayBatDau"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="10dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_date_end"
-            android:scaleType="centerInside"
-            android:background="@drawable/bg_circle"
-            android:backgroundTint="@color/orange"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:hint="Chọn ngày kết thúc"
-            android:paddingLeft="15dp"
-            android:gravity="center_vertical"
-            android:id="@+id/txtChonNgayKetThuc"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="10dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_note"
-            android:scaleType="centerInside"
-            android:clipToOutline="true"
-            android:background="@drawable/bg_circle"
-            android:backgroundTint="@color/orange"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="Hạn mức"
+            style="@style/Widget.qlct.TextInputLayout.OutlineBox"
+            android:layout_margin="10dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Ghi chú"
+                android:layout_height="70dp"
                 android:textSize="20sp"
                 android:textColor="@color/black"
-                android:background="@color/white"/>
+                android:drawableStart="@drawable/icon_purse"
+                android:drawablePadding="10dp"
+                android:background="@drawable/bg_borders"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:hint="Chọn ngày bắt đầu"
+                android:gravity="center_vertical"
+                android:id="@+id/txtChonNgayBatDau"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/icon_date_start"
+                android:drawablePadding="10dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/bg_borders"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:hint="Chọn ngày kết thúc"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:id="@+id/txtChonNgayKetThuc"
+                android:drawableStart="@drawable/icon_date_end"
+                android:drawablePadding="10dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/bg_borders"/>
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.qlct.TextInputLayout.OutlineBox"
+            android:hint="Ghi chú"
+            android:layout_margin="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:drawableStart="@drawable/icon_note"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:background="@drawable/bg_borders"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tạo kế hoạch"
+        android:background="@drawable/bg_corners"
+        android:backgroundTint="@color/orange"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        android:textAllCaps="false"
+        android:id="@+id/btnAddPlan"
+        android:drawableEnd="@drawable/ic_forward"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="10dp"/>
 </LinearLayout>
