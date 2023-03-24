@@ -3,4 +3,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="plan">Kế hoạch</string>
+    <string-array name="listVi">
+        <item>Chọn ví</item>
+        <item>Ngân hàng</item>
+        <item>Tiền mặt</item>
+    </string-array>
+    <string-array name="listCheDo">
+        <item>Chọn chế độ</item>
+        <item>Thu tiền</item>
+        <item>Chi Tiền</item>
+    </string-array>
+    <string-array name="listLoaiCT">
+        <item>Chọn loại chi tiêu</item>
+        <item>Ăn uống</item>
+        <item>Du lịch</item>
+        <item>Tiền nhà</item>
+        <item>Phương tiện</item>
+    </string-array>
 </resources>
