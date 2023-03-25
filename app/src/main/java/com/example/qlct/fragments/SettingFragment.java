@@ -59,20 +59,14 @@ public class SettingFragment extends Fragment {
     }
     private void showUserInformation() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null)
-        {
+        if (user == null) {
             return;
         }
-        String name = user.getDisplayName();
+        String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
-
-        if (name == null)
-        {
-            binding.txtName.setVisibility(View.GONE);
-        } else {
-            binding.txtName.setVisibility(View.VISIBLE);
-            binding.txtName.setText(name);
+        binding.txtName.setText(email);
+        if (photoUrl != null) {
+            Glide.with(this).load(photoUrl).into(binding.imgAvt);
         }
-        Glide.with(this).load(photoUrl).error(R.color.orange).into(binding.imgAvt);
     }
 }

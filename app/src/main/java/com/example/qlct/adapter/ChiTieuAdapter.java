@@ -39,8 +39,8 @@ public class ChiTieuAdapter extends RecyclerView.Adapter<ChiTieuAdapter.ChiTieuV
         //if(chitieu.getMaLoaiChiTieu() == 1) {
             holder.imgItem.setImageResource(R.drawable.ic_add);
         //}
-        holder.txtLoaiCT.setText(String.valueOf(chitieu.getMaLoaiChiTieu()));
-        holder.txtNgayCT.setText(chitieu.getThoiGianCT());
+        holder.txtLoaiCT.setText(String.valueOf(chitieu.getMaLoaiCT()));
+        holder.txtNgayCT.setText(String.valueOf(chitieu.getTgCT()));
         holder.txtTienCT.setText(String.valueOf(chitieu.getSoTien()));
     }
 

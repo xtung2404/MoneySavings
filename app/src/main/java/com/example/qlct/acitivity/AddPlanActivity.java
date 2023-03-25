@@ -10,56 +10,55 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.qlct.R;
+import com.example.qlct.databinding.ActivityAddChiTieuBinding;
+import com.example.qlct.databinding.ActivityAddPlanBinding;
 
 import java.util.Calendar;
 
 public class AddPlanActivity extends AppCompatActivity {
-    private ImageButton btnCloseAddPlan;
-    private TextView txtChonNgayBatDau, txtChonNgayKetThuc;
+    ActivityAddPlanBinding binding;
     private Calendar c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_plan);
+        binding = ActivityAddPlanBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         initView();
     }
     private void initView() {
-        btnCloseAddPlan = findViewById(R.id.btnCloseAddPlan);
-        txtChonNgayBatDau = findViewById(R.id.txtChonNgayBatDau);
-        txtChonNgayKetThuc = findViewById(R.id.txtChonNgayKetThuc);
-
-        btnCloseAddPlan.setOnClickListener(new View.OnClickListener() {
+        binding.btnCloseAddPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        txtChonNgayBatDau.setOnClickListener(new View.OnClickListener() {
+        binding.txtChonNgayBatDau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 c = Calendar.getInstance();
                 DatePickerDialog bdDialog = new DatePickerDialog(AddPlanActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        txtChonNgayBatDau.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                        binding.txtChonNgayBatDau.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 bdDialog.show();
             }
         });
 
-        txtChonNgayKetThuc.setOnClickListener(new View.OnClickListener() {
+        binding.txtChonNgayKetThuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtChonNgayKetThuc.setOnClickListener(new View.OnClickListener() {
+                binding.txtChonNgayKetThuc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         c = Calendar.getInstance();
                         DatePickerDialog ktDialog = new DatePickerDialog(AddPlanActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                txtChonNgayKetThuc.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                                binding.txtChonNgayKetThuc.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
                             }
                         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                         ktDialog.show();

@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileDetailActivity extends AppCompatActivity {
     ActivityProfileDetailBinding binding;
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +29,11 @@ public class ProfileDetailActivity extends AppCompatActivity {
         showUserInformation();
     }
     private void initView(){
-        binding.btnCloseQLTK.setOnClickListener(new View.OnClickListener() {
+        auth = FirebaseAuth.getInstance();
+        binding.btnDangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+                auth.signOut();
                 finish();
                 startActivity(new Intent(ProfileDetailActivity.this, MainActivity.class));
             }
@@ -56,10 +58,16 @@ public class ProfileDetailActivity extends AppCompatActivity {
                 setEnabled(false);
             }
         });
+        binding.btnCloseQLTK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     private void showUserInformation()
     {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = auth.getCurrentUser();
         if(user == null)
         {
             return;
@@ -69,7 +77,9 @@ public class ProfileDetailActivity extends AppCompatActivity {
         Uri photoUrl = user.getPhotoUrl();
         binding.edtEmail.setText(email);
         binding.edtName.setText(name);
-        Glide.with(this).load(photoUrl).error(R.color.orange).into(binding.imgAvt);
+        if(photoUrl != null) {
+            Glide.with(this).load(photoUrl).into(binding.imgAvt);
+        }
 
     }
     private void setEnabled(boolean yes) {

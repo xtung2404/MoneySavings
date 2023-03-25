@@ -13,94 +13,84 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.qlct.R;
-import com.example.qlct.model.Plan;
+import com.example.qlct.databinding.ActivityAddChiTieuBinding;
+import com.example.qlct.databinding.ActivityPlanDetailAcitivityBinding;
+import com.example.qlct.model.KeHoach;
 
 import java.util.Calendar;
 
 public class PlanDetailAcitivity extends AppCompatActivity {
-    private Plan mPlan;
-    private EditText edtTenKeHoach, edtHanMuc, edtGhiChu;
-    private TextView txtNgayBatDau, txtNgayKetThuc;
-    private ImageButton btnEdit, btnCloseDetail;
-    private AppCompatButton btnCancel, btnOK;
-    private LinearLayout ll_button;
+    ActivityPlanDetailAcitivityBinding binding;
+    private KeHoach mPlan;
     private Calendar c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_detail_acitivity);
-        mPlan = (Plan) getIntent().getSerializableExtra("item");
+        binding = ActivityPlanDetailAcitivityBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        mPlan = (KeHoach) getIntent().getSerializableExtra("item");
         initView();
     }
 
     private void initView() {
-        edtTenKeHoach = findViewById(R.id.edtTenKeHoach);
-        edtHanMuc = findViewById(R.id.edtHanMuc);
-        edtGhiChu = findViewById(R.id.edtGhiChu);
-        txtNgayBatDau = findViewById(R.id.txtNgayBatDau);
-        txtNgayKetThuc = findViewById(R.id.txtNgayKetThuc);
-        btnEdit = findViewById(R.id.btnEdit);
-        btnCancel = findViewById(R.id.btnCancel);
-        btnOK = findViewById(R.id.btnOK);
-        btnCloseDetail = findViewById(R.id.btnCloseDetail);
-        ll_button = findViewById(R.id.ll_button);
-        edtTenKeHoach.setText(mPlan.getTenKeHoach());
-        edtHanMuc.setText(String.valueOf(mPlan.getHanMuc()));
-        edtGhiChu.setText(mPlan.getGhiChu());
-        txtNgayBatDau.setText(mPlan.getThoiGianBatDau());
-        txtNgayKetThuc.setText(mPlan.getThoiGianKetThuc());
+        binding.edtTenKeHoach.setText(mPlan.getTenKeHoach());
+        binding.edtHanMuc.setText(String.valueOf(mPlan.getHanMuc()));
+        binding.edtGhiChu.setText(mPlan.getGhiChu());
+        binding.txtNgayBatDau.setText(mPlan.getThoiGianBatDau().toString());
+        binding.txtNgayKetThuc.setText(mPlan.getThoiGianKetThuc().toString());
         setUneditableItem();
-        btnCloseDetail.setOnClickListener(new View.OnClickListener() {
+        binding.btnCloseDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setEditableItem();
-                edtTenKeHoach.setFocusable(true);
-                ll_button.setVisibility(View.VISIBLE);
+                binding.edtTenKeHoach.setFocusable(true);
+                binding.llButton.setVisibility(View.VISIBLE);
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setUneditableItem();
-                ll_button.setVisibility(View.GONE);
+                binding.llButton.setVisibility(View.GONE);
             }
         });
     }
 
     private void setEditableItem() {
-        edtTenKeHoach.setEnabled(true);
-        edtHanMuc.setEnabled(true);
-        edtGhiChu.setEnabled(true);
+        binding.edtTenKeHoach.setEnabled(true);
+        binding.edtHanMuc.setEnabled(true);
+        binding.edtGhiChu.setEnabled(true);
 
-        txtNgayBatDau.setOnClickListener(new View.OnClickListener() {
+        binding.txtNgayBatDau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 c = Calendar.getInstance();
                 DatePickerDialog bdDialog = new DatePickerDialog(PlanDetailAcitivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        txtNgayBatDau.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                        binding.txtNgayBatDau.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 bdDialog.show();
             }
         });
-        txtNgayKetThuc.setOnClickListener(new View.OnClickListener() {
+        binding.txtNgayKetThuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 c = Calendar.getInstance();
                 DatePickerDialog ktDialog = new DatePickerDialog(PlanDetailAcitivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        txtNgayKetThuc.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                        binding.txtNgayKetThuc.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 ktDialog.show();
@@ -109,10 +99,10 @@ public class PlanDetailAcitivity extends AppCompatActivity {
     }
 
     private void setUneditableItem() {
-        edtTenKeHoach.setEnabled(false);
-        edtHanMuc.setEnabled(false);
-        edtGhiChu.setEnabled(false);
-        txtNgayBatDau.setClickable(false);
-        txtNgayKetThuc.setClickable(false);
+        binding.edtTenKeHoach.setEnabled(false);
+        binding.edtHanMuc.setEnabled(false);
+        binding.edtGhiChu.setEnabled(false);
+        binding.txtNgayBatDau.setClickable(false);
+        binding.txtNgayKetThuc.setClickable(false);
     }
 }

@@ -52,15 +52,6 @@
                 android:background="@color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Spinner
-            android:id="@+id/spnChonVi"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/black"
-            android:background="@drawable/bg_borders"
-            android:backgroundTint="@color/white"
-            android:layout_marginTop="10dp"/>
-        <Spinner
             android:id="@+id/spnCheDo"
             android:layout_width="match_parent"
             android:layout_height="70dp"

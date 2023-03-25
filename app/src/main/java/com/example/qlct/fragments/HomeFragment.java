@@ -16,6 +16,7 @@ import com.example.qlct.databinding.FragmentSoChiTieuBinding;
 import com.example.qlct.model.ChiTieu;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -31,7 +32,7 @@ public class HomeFragment extends Fragment {
     }
     private void initView() {
         mChiTieus = new ArrayList<>();
-        mChiTieus.add(new ChiTieu(0,2000,1, 1, "22/2/2023", "khong co gi"));
+        mChiTieus.add(new ChiTieu(0,2000,1, 1, new Date(22,3,2023), "khong co gi"));
         ctAdapter = new ChiTieuAdapter(getActivity(), mChiTieus);
         binding.rvChiTieu.setAdapter(ctAdapter);
         binding.rvChiTieu.setLayoutManager(new LinearLayoutManager(getActivity()));

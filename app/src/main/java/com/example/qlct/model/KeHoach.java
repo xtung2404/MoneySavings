@@ -1,83 +1,90 @@
 package com.example.qlct.model;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 
-public class Plan implements Serializable{
-    private String MaKeHoach;
-    private String TenKeHoach;
-    private float HanMuc;
-    private String ThoiGianBatDau;
-    private String ThoiGianKetThuc;
-    private String GhiChu;
-    private boolean isDeleted;
+public class KeHoach implements Serializable{
+    private int maKeHoach;
+    private String tenKeHoach;
+    private Date thoiGianBatDau ;
+    private Date thoiGianKetThuc ;
+    private double hanMuc;
+    private String ghiChu;
+    private String maKH;
+    private int hoanThanh;
 
-    public Plan(String maKeHoach, String tenKeHoach, float hanMuc, String thoiGianBatDau, String thoiGianKetThuc, String ghiChu, boolean isDeleted) {
-        MaKeHoach = maKeHoach;
-        TenKeHoach = tenKeHoach;
-        HanMuc = hanMuc;
-        ThoiGianBatDau = thoiGianBatDau;
-        ThoiGianKetThuc = thoiGianKetThuc;
-        GhiChu = ghiChu;
-        this.isDeleted = isDeleted;
+    public KeHoach(int maKeHoach, String tenKeHoach, Date thoiGianBatDau, Date thoiGianKetThuc, double hanMuc, String ghiChu, String maKH, int hoanThanh) {
+        this.maKeHoach = maKeHoach;
+        this.tenKeHoach = tenKeHoach;
+        this.thoiGianBatDau = thoiGianBatDau;
+        this.thoiGianKetThuc = thoiGianKetThuc;
+        this.hanMuc = hanMuc;
+        this.ghiChu = ghiChu;
+        this.maKH = maKH;
+        this.hoanThanh = hoanThanh;
     }
 
-    public String getMaKeHoach() {
-        return MaKeHoach;
+    public int getMaKeHoach() {
+        return maKeHoach;
     }
 
-    public void setMaKeHoach(String maKeHoach) {
-        MaKeHoach = maKeHoach;
+    public void setMaKeHoach(int maKeHoach) {
+        this.maKeHoach = maKeHoach;
     }
 
     public String getTenKeHoach() {
-        return TenKeHoach;
+        return tenKeHoach;
     }
 
     public void setTenKeHoach(String tenKeHoach) {
-        TenKeHoach = tenKeHoach;
+        this.tenKeHoach = tenKeHoach;
     }
 
-    public float getHanMuc() {
-        return HanMuc;
+    public Date getThoiGianBatDau() {
+        return thoiGianBatDau;
     }
 
-    public void setHanMuc(float hanMuc) {
-        HanMuc = hanMuc;
+    public void setThoiGianBatDau(Date thoiGianBatDau) {
+        this.thoiGianBatDau = thoiGianBatDau;
     }
 
-    public String getThoiGianBatDau() {
-        return ThoiGianBatDau;
+    public Date getThoiGianKetThuc() {
+        return thoiGianKetThuc;
     }
 
-    public void setThoiGianBatDau(String thoiGianBatDau) {
-        ThoiGianBatDau = thoiGianBatDau;
+    public void setThoiGianKetThuc(Date thoiGianKetThuc) {
+        this.thoiGianKetThuc = thoiGianKetThuc;
     }
 
-    public String getThoiGianKetThuc() {
-        return ThoiGianKetThuc;
+    public double getHanMuc() {
+        return hanMuc;
     }
 
-    public void setThoiGianKetThuc(String thoiGianKetThuc) {
-        ThoiGianKetThuc = thoiGianKetThuc;
+    public void setHanMuc(double hanMuc) {
+        this.hanMuc = hanMuc;
     }
 
     public String getGhiChu() {
-        return GhiChu;
+        return ghiChu;
     }
 
     public void setGhiChu(String ghiChu) {
-        GhiChu = ghiChu;
+        this.ghiChu = ghiChu;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public String getMaKH() {
+        return maKH;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public int getHoanThanh() {
+        return hoanThanh;
+    }
+
+    public void setHoanThanh(int hoanThanh) {
+        this.hoanThanh = hoanThanh;
     }
 }

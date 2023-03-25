@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.qlct.acitivity.AddChiTieuActivity;
+import com.example.qlct.acitivity.LogInActivity;
 import com.example.qlct.fragments.HomeFragment;
 import com.example.qlct.fragments.PlanFragment;
 import com.example.qlct.fragments.SettingFragment;
@@ -18,11 +19,13 @@ import com.example.qlct.fragments.SoChiTieuFragment;
 import com.example.qlct.fragments.SoChiTieuViewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if(user == null) {
+            startActivity(new Intent(MainActivity.this, LogInActivity.class));
+            finish();
+        }
         mBottomNavigationView = findViewById(R.id.bottomNagivationView);
         replaceFragment(new HomeFragment());
 

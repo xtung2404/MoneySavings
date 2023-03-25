@@ -1,77 +1,69 @@
 package com.example.qlct.model;
 
-public class ChiTieu {
-    private int MaChiTieu;
-    private double SoTien;
-    private int MaVi;
-    private int MaLoaiChiTieu;
-    private String ThoiGianCT;
-    private String GhiChu;
-    private int isDeleted;
+import java.util.Date;
 
-    public ChiTieu(int maChiTieu, double soTien, int maVi, int maLoaiChiTieu, String thoiGianCT, String ghiChu) {
-        MaChiTieu = maChiTieu;
-        SoTien = soTien;
-        MaVi = maVi;
-        MaLoaiChiTieu = maLoaiChiTieu;
-        ThoiGianCT = thoiGianCT;
-        GhiChu = ghiChu;
-        isDeleted = 1;
+public class ChiTieu {
+    private int maChiTieu;
+    private double soTien;
+    private int maVi;
+    private int maLoaiCT;
+    private Date tgCT;
+    private String ghiChu;
+
+    public ChiTieu(int maChiTieu, double soTien, int maVi, int maLoaiCT, Date tgCT, String ghiChu) {
+        this.maChiTieu = maChiTieu;
+        this.soTien = soTien;
+        this.maVi = maVi;
+        this.maLoaiCT = maLoaiCT;
+        this.tgCT = tgCT;
+        this.ghiChu = ghiChu;
     }
 
     public int getMaChiTieu() {
-        return MaChiTieu;
+        return maChiTieu;
     }
 
     public void setMaChiTieu(int maChiTieu) {
-        MaChiTieu = maChiTieu;
+        this.maChiTieu = maChiTieu;
     }
 
     public double getSoTien() {
-        return SoTien;
+        return soTien;
     }
 
     public void setSoTien(double soTien) {
-        SoTien = soTien;
+        this.soTien = soTien;
     }
 
     public int getMaVi() {
-        return MaVi;
+        return maVi;
     }
 
     public void setMaVi(int maVi) {
-        MaVi = maVi;
+        this.maVi = maVi;
     }
 
-    public int getMaLoaiChiTieu() {
-        return MaLoaiChiTieu;
+    public int getMaLoaiCT() {
+        return maLoaiCT;
     }
 
-    public void setMaLoaiChiTieu(int maLoaiChiTieu) {
-        MaLoaiChiTieu = maLoaiChiTieu;
+    public void setMaLoaiCT(int maLoaiCT) {
+        this.maLoaiCT = maLoaiCT;
     }
 
-    public String getThoiGianCT() {
-        return ThoiGianCT;
+    public Date getTgCT() {
+        return tgCT;
     }
 
-    public void setThoiGianCT(String thoiGianCT) {
-        ThoiGianCT = thoiGianCT;
+    public void setTgCT(Date tgCT) {
+        this.tgCT = tgCT;
     }
 
     public String getGhiChu() {
-        return GhiChu;
+        return ghiChu;
     }
 
     public void setGhiChu(String ghiChu) {
-        GhiChu = ghiChu;
-    }
-
-    public int getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
+        this.ghiChu = ghiChu;
     }
 }

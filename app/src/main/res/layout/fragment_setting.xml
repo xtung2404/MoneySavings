@@ -52,15 +52,16 @@
 
             <TextView
                 android:id="@+id/txtName"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Name"
-                android:textAlignment="center"
+                android:padding="10dp"
+                android:gravity="center"
                 android:visibility="visible"
                 android:background="@drawable/bg_corners"
                 android:backgroundTint="@color/gray"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
 
 

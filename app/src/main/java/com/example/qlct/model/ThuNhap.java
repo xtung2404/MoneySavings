@@ -1,20 +1,20 @@
 package com.example.qlct.model;
 
-public class ThuNhap {
-    private int MaThuNhap;
-    private double SoTien;
-    private int MaVi;
-    private String ThoiGianTN;
-    private String GhiChu;
-    private int isDeleted;
+import java.util.Date;
 
-    public ThuNhap(int maThuNhap, double soTien, int maVi, String thoiGianTN, String ghiChu) {
+public class ThuNhap {
+    private  int MaThuNhap;
+    private double SoTien;
+    private  String MaVi;
+    private Date ThoiGianTN;
+    private String GhiChu;
+
+    public ThuNhap(int maThuNhap, double soTien, String maVi, Date thoiGianTN, String ghiChu) {
         MaThuNhap = maThuNhap;
         SoTien = soTien;
         MaVi = maVi;
         ThoiGianTN = thoiGianTN;
         GhiChu = ghiChu;
-        isDeleted = 1;
     }
 
     public int getMaThuNhap() {
@@ -33,19 +33,19 @@ public class ThuNhap {
         SoTien = soTien;
     }
 
-    public int getMaVi() {
+    public String getMaVi() {
         return MaVi;
     }
 
-    public void setMaVi(int maVi) {
+    public void setMaVi(String maVi) {
         MaVi = maVi;
     }
 
-    public String getThoiGianTN() {
+    public Date getThoiGianTN() {
         return ThoiGianTN;
     }
 
-    public void setThoiGianTN(String thoiGianTN) {
+    public void setThoiGianTN(Date thoiGianTN) {
         ThoiGianTN = thoiGianTN;
     }
 
@@ -55,13 +55,5 @@ public class ThuNhap {
 
     public void setGhiChu(String ghiChu) {
         GhiChu = ghiChu;
-    }
-
-    public int getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
     }
 }

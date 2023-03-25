@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.qlct.R;
-import com.example.qlct.model.Plan;
+import com.example.qlct.model.KeHoach;
 
 import java.util.ArrayList;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder>{
     private Context context;
-    private ArrayList<Plan> mPlans;
+    private ArrayList<KeHoach> mPlans;
     private LayoutInflater layoutInflater;
     private OnClickListener mOnClickListener;
-    public PlanAdapter(Context context, ArrayList<Plan> mPlans, OnClickListener mOnClickListener) {
+    public PlanAdapter(Context context, ArrayList<KeHoach> mPlans, OnClickListener mOnClickListener) {
         this.context = context;
         this.mPlans = mPlans;
         this.mOnClickListener = mOnClickListener;
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setListPlan(ArrayList<Plan> plans) {
+    public void setListPlan(ArrayList<KeHoach> plans) {
         mPlans = plans;
         notifyDataSetChanged();
     }
@@ -40,7 +40,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
-        Plan mPlan = mPlans.get(position);
+        KeHoach mPlan = mPlans.get(position);
         holder.txtPlanName.setText(mPlan.getTenKeHoach());
         holder.txtPlanMoney.setText(String.valueOf(mPlan.getHanMuc()));
     }

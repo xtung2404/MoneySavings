@@ -1,37 +1,27 @@
 package com.example.qlct.model;
 
 public class LoaiChiTieu {
-    private int MaLoaiChiTieu;
-    private String TenLoaiChiTieu;
-    private int isDeleted;
+    private int maLoaiCT;
+    private  String tenLoaiCT;
 
-    public LoaiChiTieu(int maLoaiChiTieu, String tenLoaiChiTieu) {
-        MaLoaiChiTieu = maLoaiChiTieu;
-        TenLoaiChiTieu = tenLoaiChiTieu;
-        isDeleted = 1;
+    public LoaiChiTieu(int maLoaiCT, String tenLoaiCT) {
+        this.maLoaiCT = maLoaiCT;
+        this.tenLoaiCT = tenLoaiCT;
     }
 
-    public int getMaLoaiChiTieu() {
-        return MaLoaiChiTieu;
+    public int getMaLoaiCT() {
+        return maLoaiCT;
     }
 
-    public void setMaLoaiChiTieu(int maLoaiChiTieu) {
-        MaLoaiChiTieu = maLoaiChiTieu;
+    public void setMaLoaiCT(int maLoaiCT) {
+        this.maLoaiCT = maLoaiCT;
     }
 
-    public String getTenLoaiChiTieu() {
-        return TenLoaiChiTieu;
+    public String getTenLoaiCT() {
+        return tenLoaiCT;
     }
 
-    public void setTenLoaiChiTieu(String tenLoaiChiTieu) {
-        TenLoaiChiTieu = tenLoaiChiTieu;
-    }
-
-    public int getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setTenLoaiCT(String tenLoaiCT) {
+        this.tenLoaiCT = tenLoaiCT;
     }
 }

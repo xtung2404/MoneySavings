@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +20,7 @@ import com.example.qlct.acitivity.AddPlanActivity;
 import com.example.qlct.acitivity.PlanDetailAcitivity;
 import com.example.qlct.adapter.OnClickListener;
 import com.example.qlct.adapter.PlanAdapter;
-import com.example.qlct.model.Plan;
+import com.example.qlct.model.KeHoach;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -29,9 +28,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
 
 public class PlanFragment extends Fragment {
@@ -39,7 +37,7 @@ public class PlanFragment extends Fragment {
     private TabLayout mTabLayout;
     private RecyclerView rvKeHoach;
     private PlanAdapter mPlanAdapter;
-    private ArrayList<Plan> mFinishedPlans, mUnfinishedPlans;
+    private ArrayList<KeHoach> mFinishedPlans, mUnfinishedPlans;
     private ImageButton btnAddPlan;
     private PieChart pieChart;
     private PieData pieData;
@@ -81,9 +79,9 @@ public class PlanFragment extends Fragment {
         mFinishedPlans = new ArrayList<>();
         mUnfinishedPlans = new ArrayList<>();
 
-        Plan mPlan = new Plan("0", "8/3", 2000, "22/2/2022", "22/2/2023", "0", false);
-        Plan mPlan1 = new Plan("1", "20/10", 2000, "22/2/2022", "22/2/2023", "0", false);
-        Plan mPlan2 = new Plan("2", "Sinh nhật", 2000, "22/2/2022", "22/2/2023", "0", false);
+        KeHoach mPlan = new KeHoach(0, "8/3",  new Date(22,3,2023), new Date(22,3,2023),2000, "0", null,1);
+        KeHoach mPlan1 = new KeHoach(1, "20/10",  new Date(22,3,2023), new Date(22,3,2023),200, "0", null,1);
+        KeHoach mPlan2 = new KeHoach(2, "Sinh nhật",  new Date(22,3,2023), new Date(22,3,2023), 200,"0", null,1);
         mFinishedPlans.add(mPlan);
         mFinishedPlans.add(mPlan1);
         mFinishedPlans.add(mPlan2);

@@ -31,8 +31,6 @@ public class AddChiTieuActivity extends AppCompatActivity {
         });
     }
     private void initData(){
-        ArrayAdapter<CharSequence> viAdapter = ArrayAdapter.createFromResource(this, R.array.listVi, android.R.layout.simple_spinner_dropdown_item);
-        binding.spnChonVi.setAdapter(viAdapter);
         ArrayAdapter<CharSequence> cdAdapter = ArrayAdapter.createFromResource(this, R.array.listCheDo, android.R.layout.simple_spinner_dropdown_item);
         binding.spnCheDo.setAdapter(cdAdapter);
         ArrayAdapter<CharSequence> loaiCTAdapter = ArrayAdapter.createFromResource(this, R.array.listLoaiCT, android.R.layout.simple_spinner_dropdown_item);
