@@ -13,7 +13,7 @@ public class KeHoach implements Serializable{
     private String maKH;
     private int hoanThanh;
 
-    public KeHoach(int maKeHoach, String tenKeHoach, Date thoiGianBatDau, Date thoiGianKetThuc, double hanMuc, String ghiChu, String maKH, int hoanThanh) {
+    public KeHoach(int maKeHoach, String tenKeHoach, Date thoiGianBatDau, Date thoiGianKetThuc, double hanMuc, String ghiChu, String maKH, int HoanThanh) {
         this.maKeHoach = maKeHoach;
         this.tenKeHoach = tenKeHoach;
         this.thoiGianBatDau = thoiGianBatDau;
@@ -21,7 +21,7 @@ public class KeHoach implements Serializable{
         this.hanMuc = hanMuc;
         this.ghiChu = ghiChu;
         this.maKH = maKH;
-        this.hoanThanh = hoanThanh;
+        this.hoanThanh = HoanThanh;
     }
 
     public int getMaKeHoach() {

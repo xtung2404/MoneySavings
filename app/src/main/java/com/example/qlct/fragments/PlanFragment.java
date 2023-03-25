@@ -20,7 +20,10 @@ import com.example.qlct.acitivity.AddPlanActivity;
 import com.example.qlct.acitivity.PlanDetailAcitivity;
 import com.example.qlct.adapter.OnClickListener;
 import com.example.qlct.adapter.PlanAdapter;
+import com.example.qlct.databinding.FragmentHomeBinding;
+import com.example.qlct.databinding.FragmentPlanBinding;
 import com.example.qlct.model.KeHoach;
+import com.example.qlct.sqlite.KeHoachSql;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -28,26 +31,26 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class PlanFragment extends Fragment {
-    private View mView;
-    private TabLayout mTabLayout;
-    private RecyclerView rvKeHoach;
+    FragmentPlanBinding binding;
     private PlanAdapter mPlanAdapter;
-    private ArrayList<KeHoach> mFinishedPlans, mUnfinishedPlans;
-    private ImageButton btnAddPlan;
-    private PieChart pieChart;
+    private ArrayList<KeHoach> mPlans;
     private PieData pieData;
     private PieDataSet pieDataSet;
     private ArrayList pieEntriesArrayList;
+    KeHoachSql keHoachSql;
     private OnClickListener mOnClickListener = new OnClickListener() {
         @Override
         public void onClickListener(int position) {
             Intent intent = new Intent(getActivity(), PlanDetailAcitivity.class);
-            intent.putExtra("item", mFinishedPlans.get(position));
+            Bundle bundle = new Bundle();
+            bundle.putInt("item", mPlans.get(position).getMaKeHoach());
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     };
@@ -55,38 +58,33 @@ public class PlanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_plan, container, false);
+        View view = inflater.inflate(R.layout.fragment_plan, container, false);
+        binding = FragmentPlanBinding.bind(view);
         initView();
-        return mView;
+        return view;
     }
     private void initView() {
-        rvKeHoach = mView.findViewById(R.id.rvKeHoach);
-        mTabLayout = mView.findViewById(R.id.tab_layout);
-        btnAddPlan = mView.findViewById(R.id.btnAddPlan);
-        pieChart = mView.findViewById(R.id.planChart);
+        keHoachSql = new KeHoachSql(getActivity(), KeHoachSql.TableName, null, 1);
         getPieEntries();
         pieData = new PieData(pieDataSet);
-
-        pieChart.setData(pieData);
+        binding.planChart.setData(pieData);
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         pieDataSet.setValueTextColor(Color.BLACK);
 
         // setting text size
         pieDataSet.setValueTextSize(16f);
-        pieChart.getDescription().setEnabled(false);
-        mTabLayout.addTab(mTabLayout.newTab().setText("Chưa hoàn thành"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Đã hoàn thành"));
-        mFinishedPlans = new ArrayList<>();
-        mUnfinishedPlans = new ArrayList<>();
-
-        KeHoach mPlan = new KeHoach(0, "8/3",  new Date(22,3,2023), new Date(22,3,2023),2000, "0", null,1);
-        KeHoach mPlan1 = new KeHoach(1, "20/10",  new Date(22,3,2023), new Date(22,3,2023),200, "0", null,1);
-        KeHoach mPlan2 = new KeHoach(2, "Sinh nhật",  new Date(22,3,2023), new Date(22,3,2023), 200,"0", null,1);
-        mFinishedPlans.add(mPlan);
-        mFinishedPlans.add(mPlan1);
-        mFinishedPlans.add(mPlan2);
-        mUnfinishedPlans.add(mPlan);
-        mUnfinishedPlans.add(mPlan1);
+        binding.planChart.getDescription().setEnabled(false);
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Chưa hoàn thành"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Đã hoàn thành"));
+        mPlans = new ArrayList<>();
+        try {
+            mPlans = keHoachSql.getListKeHoach(0);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mPlanAdapter = new PlanAdapter(getContext(), mPlans, mOnClickListener);
+        binding.rvKeHoach.setAdapter(mPlanAdapter);
+        binding.rvKeHoach.setLayoutManager(new LinearLayoutManager(getContext()));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -95,14 +93,14 @@ public class PlanFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                mFinishedPlans.remove(position);
-                mPlanAdapter.setListPlan(mFinishedPlans);
+                int id = mPlans.get(viewHolder.getAdapterPosition()).getMaKeHoach();
+                keHoachSql.deleteKeHoach(id);
+                mPlanAdapter.notifyDataSetChanged();
             }
         });
-        itemTouchHelper.attachToRecyclerView(rvKeHoach);
+        itemTouchHelper.attachToRecyclerView(binding.rvKeHoach);
 
-        btnAddPlan.setOnClickListener(new View.OnClickListener() {
+        binding.btnAddPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddPlanActivity.class);
@@ -110,18 +108,15 @@ public class PlanFragment extends Fragment {
             }
         });
 
-        mPlanAdapter = new PlanAdapter(getContext(), mUnfinishedPlans, mOnClickListener);
-        rvKeHoach.setAdapter(mPlanAdapter);
-        rvKeHoach.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getText() == "Chưa hoàn thành") {
-                    mPlanAdapter.setListPlan(mUnfinishedPlans);
+                    initData(0);
                 }
                 else {
-                    mPlanAdapter.setListPlan(mFinishedPlans);
+                    initData(1);
                 }
             }
 
@@ -149,6 +144,14 @@ public class PlanFragment extends Fragment {
         for (int i = 0; i < xData.length;i++){
             xEntrys.add(xData[i]);
         }
-        pieDataSet=new PieDataSet(yEntrys,"Pie");
+        pieDataSet=new PieDataSet(yEntrys,"Thống kê kế hoạch");
+    }
+    private void initData(int hoanthanh) {
+        try {
+            mPlans = keHoachSql.getListKeHoach(hoanthanh);
+            mPlanAdapter.notifyDataSetChanged();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

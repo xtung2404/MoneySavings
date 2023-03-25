@@ -149,10 +149,35 @@ public class KeHoachSql extends SQLiteOpenHelper {
             }
         return list;
     }
+    public ArrayList<KeHoach> getListKeHoach(int hoanthanh) throws ParseException {
+        ArrayList<KeHoach> list = new ArrayList<>();
+        //câu truy vấn
+        String sql = "Select * from " + TableName +" where Isdeleted=1 "+" and HoanThanh=" + hoanthanh;
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                KeHoach keHoach = new KeHoach(cursor.getInt(0),
+                        cursor.getString(1),
+                        (Date) new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(2)),
+                        (Date) new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(3)),
+                        cursor.getDouble(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7)
+                );
+                list.add(keHoach);
+            }
+        return list;
+    }
     public ArrayList<KeHoach> getKeHoachHT(int id) throws ParseException {
         ArrayList<KeHoach> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKeHoach="+id +" and HoanThanh=1";
+        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKeHoach="+id;
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor

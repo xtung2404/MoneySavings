@@ -1,8 +1,9 @@
 package com.example.qlct.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ChiTieu {
+public class ChiTieu implements Serializable {
     private int maChiTieu;
     private double soTien;
     private int maVi;

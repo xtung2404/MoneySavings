@@ -16,29 +16,49 @@ import com.example.qlct.R;
 import com.example.qlct.databinding.ActivityAddChiTieuBinding;
 import com.example.qlct.databinding.ActivityPlanDetailAcitivityBinding;
 import com.example.qlct.model.KeHoach;
+import com.example.qlct.sqlite.KeHoachSql;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class PlanDetailAcitivity extends AppCompatActivity {
     ActivityPlanDetailAcitivityBinding binding;
+    int makh = 0;
     private KeHoach mPlan;
     private Calendar c;
+    KeHoachSql keHoachSql;
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPlanDetailAcitivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        mPlan = (KeHoach) getIntent().getSerializableExtra("item");
+        keHoachSql = new KeHoachSql(this, KeHoachSql.TableName, null, 1);
+        makh =  getIntent().getExtras().getInt("Item");
+        try {
+            mPlan = keHoachSql.getKeHoachHT(makh).get(0);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         initView();
     }
 
     private void initView() {
+        auth = FirebaseAuth.getInstance();
         binding.edtTenKeHoach.setText(mPlan.getTenKeHoach());
         binding.edtHanMuc.setText(String.valueOf(mPlan.getHanMuc()));
         binding.edtGhiChu.setText(mPlan.getGhiChu());
         binding.txtNgayBatDau.setText(mPlan.getThoiGianBatDau().toString());
         binding.txtNgayKetThuc.setText(mPlan.getThoiGianKetThuc().toString());
+        if (mPlan.getHoanThanh() == 0) {
+            binding.btnHoanThanh.setText("Chưa hoàn thành");
+            binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.gray));
+        } else {
+            binding.btnHoanThanh.setText("Đã hoàn thành");
+            binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.orange));
+        }
         setUneditableItem();
         binding.btnCloseDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +81,23 @@ public class PlanDetailAcitivity extends AppCompatActivity {
             public void onClick(View v) {
                 setUneditableItem();
                 binding.llButton.setVisibility(View.GONE);
+            }
+        });
+
+        binding.btnHoanThanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPlan.getHoanThanh() == 1) {
+                    binding.btnHoanThanh.setText("Chưa hoàn thành");
+                    binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.gray));
+                    mPlan.setHoanThanh(0);
+                    keHoachSql.updateKeHoach(mPlan);
+                } else {
+                    binding.btnHoanThanh.setText("Đã hoàn thành");
+                    binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.orange));
+                    mPlan.setHoanThanh(1);
+                    keHoachSql.updateKeHoach(mPlan);
+                }
             }
         });
     }
