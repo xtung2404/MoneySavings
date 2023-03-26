@@ -17,6 +17,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordActivity extends AppCompatActivity {
     ActivityForgotPasswordBinding binding;
     FirebaseAuth auth;
+    public boolean isValidEmail(String password) {
+        String passwordRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
+        return password.matches(passwordRegex);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +37,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         binding.OkForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String emailStr = binding.textEmailForgot.getText().toString();
+                if(!isValidEmail(emailStr)){
+                    Toast.makeText(ForgotPasswordActivity.this, "email không phù hợp",
+                            Toast.LENGTH_SHORT).show();
+                }
                 auth.sendPasswordResetEmail(emailStr).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

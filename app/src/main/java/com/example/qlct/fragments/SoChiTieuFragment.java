@@ -52,15 +52,23 @@ public class SoChiTieuFragment extends Fragment {
         binding.tablayoutCT.addTab(binding.tablayoutCT.newTab().setText("Hiện tại"));
         binding.tablayoutCT.addTab(binding.tablayoutCT.newTab().setText("Tương lai"));
         c = Calendar.getInstance();
-        replaceFragment(new SoChiTieuViewFragment(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+        c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        if (month == 1) {
+            month = 12;
+            year--;
+        } else {
+            month = month - 1;
+        }
+        replaceFragment(new SoChiTieuViewFragment(),month,year);
         listVi.add("Tiền mặt");
         listVi.add("Ngân hàng");
         ArrayAdapter<String> viAdapter = new ArrayAdapter<>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listVi);
         binding.tablayoutCT.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                bundle = new Bundle();
-                if(tab.getText() == "Tháng trước") {
+                if(tab.getText().toString().contentEquals("Tháng trước")) {
                     c = Calendar.getInstance();
                     int month = c.get(Calendar.MONTH);
                     int year = c.get(Calendar.YEAR);
@@ -71,7 +79,7 @@ public class SoChiTieuFragment extends Fragment {
                         month = month - 1;
                     }
                     replaceFragment(new SoChiTieuViewFragment(),month,year);
-                } else if(tab.getText() == "Hiện tại") {
+                } else if(tab.getText().toString().contentEquals("Hiện tại")) {
                         c = Calendar.getInstance();
                         replaceFragment(new SoChiTieuViewFragment(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 } else {

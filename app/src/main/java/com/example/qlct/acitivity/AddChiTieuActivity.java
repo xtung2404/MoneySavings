@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -64,7 +65,6 @@ public class AddChiTieuActivity extends AppCompatActivity {
                 bdDialog.show();
             }
         });
-
     }
     private void initData(){
         ArrayAdapter<CharSequence> cdAdapter = ArrayAdapter.createFromResource(this, R.array.listCheDo, android.R.layout.simple_spinner_dropdown_item);

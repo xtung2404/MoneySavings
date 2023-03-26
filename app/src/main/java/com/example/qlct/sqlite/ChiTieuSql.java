@@ -61,7 +61,8 @@ public class ChiTieuSql extends SQLiteOpenHelper {
         value.put(SoTien, chiTieu.getSoTien());
         value.put(MaKH, chiTieu.getMaKH());
         value.put(LoaiCT, chiTieu.getLoaiCT());
-        value.put(ThoiGianCT, chiTieu.getTgCT().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MM yyyy");
+        value.put(ThoiGianCT, dateFormat.format(chiTieu.getTgCT()));
         value.put(GhiChu, chiTieu.getGhiChu());
         value.put(IsDeleted, 1);
         long a=db.insert(TableName,null, value);
@@ -139,12 +140,41 @@ public class ChiTieuSql extends SQLiteOpenHelper {
             }
         return list;
     }
-
-    public ArrayList<ChiTieu> getMonthChiTieu(String MaKH, int Month) throws ParseException {
+    public ArrayList<ChiTieu> getMonthChiTieu(String MaKH, int Month,int year) throws ParseException {
         ArrayList<ChiTieu> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKH=\'"+MaKH + "\'" + "and cast(STRFTIME(\'%m\', ThoiGianCT) as Integer) ="+Month;
+        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKH=\'"+MaKH + "\'" + " and cast(ThoiGianCT as TEXT) like '%" +Month+" "+"3923%'";
 //                +" and ThoiGianCT like %" + Month + "% order by MaChiTieu";
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+        //tạo ArrayList<Contact> để trả về;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MM yyyy");
+
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                ChiTieu chiTieu = new ChiTieu(cursor.getInt(0),
+                        cursor.getDouble(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        dateFormat.parse(cursor.getString(4)),
+                        cursor.getString(5)
+                );
+                list.add(chiTieu);
+            }
+        return list;
+    }
+
+
+    public double getMoneyInMonthCT(String MaKH, int Month,int year) throws ParseException {
+        ArrayList<ChiTieu> list = new ArrayList<>();
+        double tongTien=0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MM yyyy");
+        //câu truy vấn
+        String sql = "Select * from " + TableName +" where MaKH=\'"+MaKH + "\'" + " and cast(ThoiGianCT as TEXT) like '%" +Month+" "+year+"%'";
+        // "CAST(ThoiGianCT as TEXT) like '%"+Month+"%' order by MaChiTieu";
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor
@@ -157,33 +187,7 @@ public class ChiTieuSql extends SQLiteOpenHelper {
                         cursor.getDouble(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(4)),
-                        cursor.getString(5)
-                );
-                list.add(chiTieu);
-            }
-        return list;
-    }
-    //quangcc
-    public double getMoneyInMonthCT(String MaKH, int Month) throws ParseException {
-        ArrayList<ChiTieu> list = new ArrayList<>();
-        double tongTien = 0;
-        //câu truy vấn
-        String sql = "Select * from " + TableName +" where MaKH=\'"+MaKH + "\'" + " and cast(STRFTIME('%m', ThoiGianCT) as Integer) =" +Month;
-               // "CAST(ThoiGianCT as TEXT) like '%"+Month+"%' order by MaChiTieu";
-        //lấy đối tượng csdl sqlite
-        SQLiteDatabase db = this.getReadableDatabase();
-        //chạy câu truy vấn trả về dạng Cursor
-        Cursor cursor = db.rawQuery(sql,null);
-        //tạo ArrayList<Contact> để trả về;
-        if(cursor!=null)
-            while (cursor.moveToNext())
-            {
-                 ChiTieu chiTieu = new ChiTieu(cursor.getInt(0),
-                        cursor.getDouble(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(4)),
+                        dateFormat.parse(cursor.getString(4)),
                         cursor.getString(5)
                 );
                 tongTien += chiTieu.getSoTien();

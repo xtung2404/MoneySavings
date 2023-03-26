@@ -53,13 +53,13 @@ public class SoChiTieuViewFragment extends Fragment {
     }
     private void getData() {
         Bundle bundle = this.getArguments();
-        month = bundle.getInt("month");
+        month = bundle.getInt("month") + 1;
         year = bundle.getInt("year");
         Toast.makeText(getActivity(), String.valueOf(month), Toast.LENGTH_SHORT).show();
     }
     private void initData() {
         try {
-            soChiTieus = chiTieuSql.getMonthChiTieu(user.getEmail(), month);
+            soChiTieus = chiTieuSql.getMonthChiTieu(user.getEmail(), month,year - 1900);
             ctAdapter = new ChiTieuAdapter(getActivity(), soChiTieus);
             binding.rcvSoGiaoDich.setAdapter(ctAdapter);
             binding.rcvSoGiaoDich.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -67,22 +67,22 @@ public class SoChiTieuViewFragment extends Fragment {
             e.printStackTrace();
         }
         try {
-            binding.tvTienVao.setText(String.valueOf(thuNhapSql.getMoneyInMonthTN(user.getEmail(), month)));
+            binding.tvTienVao.setText(String.valueOf(thuNhapSql.getMoneyInMonthTN(user.getEmail(), month,year-1900)));
         } catch (ParseException e) {
             Log.d("error", e.getLocalizedMessage());
         }
         try {
-            binding.tvTienRa.setText(String.valueOf(chiTieuSql.getMoneyInMonthCT(user.getEmail(), month)));
+            binding.tvTienRa.setText(String.valueOf(chiTieuSql.getMoneyInMonthCT(user.getEmail(), month,year - 1900)));
         } catch (ParseException e) {
             Log.d("error", e.getLocalizedMessage());
         }
         try {
-            binding.tvTongTien.setText(String.valueOf(thuNhapSql.getMoneyInMonthTN(user.getEmail(), month) - chiTieuSql.getMoneyInMonthCT(user.getEmail(), month)));
+            binding.tvTongTien.setText(String.valueOf(thuNhapSql.getMoneyInMonthTN(user.getEmail(), month,year) - chiTieuSql.getMoneyInMonthCT(user.getEmail(), month,year - 1900)));
         } catch (ParseException e) {
             Log.d("error", e.getLocalizedMessage());
         }
         try {
-            soChiTieus = chiTieuSql.getMonthChiTieu(user.getEmail(), month);
+            soChiTieus = chiTieuSql.getMonthChiTieu(user.getEmail(), month,year);
             ctAdapter.notifyDataSetChanged();
         } catch (ParseException e) {
             e.printStackTrace();

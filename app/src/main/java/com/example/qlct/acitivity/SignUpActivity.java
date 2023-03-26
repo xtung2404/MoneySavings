@@ -3,6 +3,7 @@ package com.example.qlct.acitivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,8 @@ import com.google.firebase.ktx.Firebase;
 public class SignUpActivity extends AppCompatActivity {
     ActivitySignUpBinding binding;
     FirebaseAuth auth;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,16 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(view);
         initView();
     }
+    public boolean isValidPassword(String password) {
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        return password.matches(passwordRegex);
+    }
+    public boolean isValidEmail(String password) {
+        String passwordRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
+        return password.matches(passwordRegex);
+    }
     private void initView(){
+        progressDialog=new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         binding.btnDangKi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,25 +62,24 @@ public class SignUpActivity extends AppCompatActivity {
         String user = binding.edtEmail.getText().toString();
         String pass = binding.edtPassword.getText().toString();
         String pass2 = binding.edtRePassword.getText().toString();
-        if(TextUtils.isEmpty(user)){
+        if(!isValidEmail(user)){
             Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(pass)){
-            Toast.makeText(this, "Password không hợp lệ", Toast.LENGTH_SHORT).show();
+        if(!isValidPassword(pass)){
+            Toast.makeText(this, "Mật khẩu có chữ hoa ,chữ thường,kí tự đặc biệt ,8 kí tự", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(pass2)){
-            Toast.makeText(this, "Password không hợp lệ", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
         if(pass.equals(pass2)==false){
             Toast.makeText(this, "mật khẩu nhập không khớp", Toast.LENGTH_SHORT).show();
             return ;
         }
+        progressDialog.show();
         auth.createUserWithEmailAndPassword(user,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                progressDialog.dismiss();
                 if(task.isSuccessful()){
                     Intent intent =new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);

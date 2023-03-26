@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".acitivity.ProfileDetailActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/blur_yellow">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
         android:layout_below="@+id/viewdong0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/blur_yellow"
         android:orientation="vertical">
 
         <ImageView

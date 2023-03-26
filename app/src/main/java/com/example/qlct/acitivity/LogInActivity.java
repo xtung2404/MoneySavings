@@ -3,6 +3,7 @@ package com.example.qlct.acitivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LogInActivity extends AppCompatActivity {
     FirebaseAuth auth;
     ActivityLogInBinding binding;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,16 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(view);
         initView();
     }
+    public boolean isValidPassword(String password) {
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        return password.matches(passwordRegex);
+    }
+    public boolean isValidEmail(String password) {
+        String passwordRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
+        return password.matches(passwordRegex);
+    }
     private void initView() {
+        progressDialog=new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         binding.btnDangNhapGmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,17 +67,19 @@ public class LogInActivity extends AppCompatActivity {
     private void LogIn() {
         String email = binding.edtEmail.getText().toString();
         String pass = binding.edtPassword.getText().toString();
-        if(TextUtils.isEmpty(email)){
+        if(!isValidEmail(email)){
             Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(pass)){
-            Toast.makeText(this, "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+        if(!isValidPassword(pass)){
+            Toast.makeText(this, "Mật khẩu có chữ hoa ,chữ thường,kí tự đặc biệt ,8 kí tự", Toast.LENGTH_SHORT).show();
             return;
         }
+        progressDialog.show();
         auth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                progressDialog.dismiss();
                 if(task.isSuccessful()){
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);

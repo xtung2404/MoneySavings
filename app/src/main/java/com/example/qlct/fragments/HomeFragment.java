@@ -81,12 +81,12 @@ public class HomeFragment extends Fragment {
         c = Calendar.getInstance();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         try {
-            pieEntries.add(new PieEntry(1f, (float) chiTieuSql.getMoneyInMonthCT(user.getEmail(), c.get(Calendar.MONTH) -1)));
+            pieEntries.add(new PieEntry(1f, (float) chiTieuSql.getMoneyInMonthCT(user.getEmail(), c.get(Calendar.MONTH) -1,c.get(Calendar.YEAR))));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         try {
-            pieEntries.add(new PieEntry(2f, (float) chiTieuSql.getMoneyInMonthCT(user.getEmail(), c.get(Calendar.MONTH))));
+            pieEntries.add(new PieEntry(2f, (float) chiTieuSql.getMoneyInMonthCT(user.getEmail(), c.get(Calendar.MONTH),c.get(Calendar.YEAR))));
         } catch (ParseException e) {
             e.printStackTrace();
         }
