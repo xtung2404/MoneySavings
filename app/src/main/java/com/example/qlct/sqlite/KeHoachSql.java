@@ -1,5 +1,6 @@
 package com.example.qlct.sqlite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class KeHoachSql extends SQLiteOpenHelper {
     private Context context;
@@ -22,7 +24,7 @@ public class KeHoachSql extends SQLiteOpenHelper {
     public static final String TenKeHoach = "TenKeHoach";
     public static final String ThoiGianBatDau = "ThoiGianBatDau";
     public static final String ThoiGianKetThuc = "ThoiGianKetThuc";
-    public static final String HangMuc = "HangMuc";
+    public static final String HanMuc = "HanMuc";
     public static final String GhiChu = "GhiChu";
     public static final String MaKH = "MaKH";
     public static final String HoanThanh = "HoanThanh";
@@ -41,7 +43,7 @@ public class KeHoachSql extends SQLiteOpenHelper {
                 +TenKeHoach+" Text, "
                 +ThoiGianBatDau+" Text, "
                 +ThoiGianKetThuc+" Text, "
-                +HangMuc+" Text, "
+                +HanMuc+" Integer, "
                 +GhiChu+" Text, "
                 + MaKH + " REAL, "
                 +HoanThanh+" Integer, "
@@ -62,15 +64,14 @@ public class KeHoachSql extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(TenKeHoach, keHoach.getMaKeHoach());
+        value.put(TenKeHoach, keHoach.getTenKeHoach());
         value.put(ThoiGianBatDau, keHoach.getThoiGianBatDau().toString());
         value.put(ThoiGianKetThuc, keHoach.getThoiGianKetThuc().toString());
-        value.put(HangMuc, keHoach.getHanMuc());
+        value.put(HanMuc, keHoach.getHanMuc());
         value.put(GhiChu, keHoach.getGhiChu());
         value.put(MaKH, keHoach.getMaKH());
         value.put(HoanThanh, keHoach.getHoanThanh());
         value.put(IsDeleted, 1);
-
         long a=db.insert(TableName,null, value);
         db.close();
     }
@@ -78,15 +79,24 @@ public class KeHoachSql extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(TenKeHoach, keHoach.getMaKeHoach());
+        value.put(TenKeHoach, keHoach.getTenKeHoach());
         value.put(ThoiGianBatDau, keHoach.getThoiGianBatDau().toString());
         value.put(ThoiGianKetThuc, keHoach.getThoiGianKetThuc().toString());
-        value.put(HangMuc, keHoach.getHanMuc());
+        value.put(HanMuc, keHoach.getHanMuc());
         value.put(GhiChu, keHoach.getGhiChu());
         value.put(MaKH, keHoach.getMaKH());
         value.put(HoanThanh, keHoach.getHoanThanh());
         db.update(TableName, value,MaKeHoach + " =? ",
                 new String[]{String.valueOf(keHoach.getMaKeHoach())});
+        db.close();
+    }
+    public void updateKeHoachID(int id, int hoanthanh)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(HoanThanh, hoanthanh);
+        db.update(TableName, value,MaKeHoach + " =? ",
+                new String[]{String.valueOf(id)});
         db.close();
     }
     public void deleteKeHoach(int id)
@@ -149,22 +159,21 @@ public class KeHoachSql extends SQLiteOpenHelper {
             }
         return list;
     }
-    public ArrayList<KeHoach> getListKeHoach(int hoanthanh) throws ParseException {
+    public ArrayList<KeHoach> getListKeHoach(String maKH, int hoanthanh) throws ParseException {
         ArrayList<KeHoach> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName +" where Isdeleted=1 "+" and HoanThanh=" + hoanthanh;
+        String sql = "Select * from " + TableName +" where MaKH=\'" +maKH +"\'"+" and HoanThanh=" + hoanthanh;
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor
         Cursor cursor = db.rawQuery(sql,null);
-
         if(cursor!=null)
             while (cursor.moveToNext())
             {
-                KeHoach keHoach = new KeHoach(cursor.getInt(0),
+                @SuppressLint("SimpleDateFormat") KeHoach keHoach = new KeHoach(cursor.getInt(0),
                         cursor.getString(1),
-                        (Date) new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(2)),
-                        (Date) new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(3)),
+                         new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(2)),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(3)),
                         cursor.getDouble(4),
                         cursor.getString(5),
                         cursor.getString(6),
@@ -177,7 +186,7 @@ public class KeHoachSql extends SQLiteOpenHelper {
     public ArrayList<KeHoach> getKeHoachHT(int id) throws ParseException {
         ArrayList<KeHoach> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKeHoach="+id;
+        String sql = "Select * from " + TableName +" where MaKeHoach="+id;
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor
@@ -188,8 +197,8 @@ public class KeHoachSql extends SQLiteOpenHelper {
             {
                 KeHoach keHoach = new KeHoach(cursor.getInt(0),
                         cursor.getString(1),
-                        (Date) new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(2)),
-                        (Date) new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(3)),
+                         new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(2)),
+                         new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(3)),
                         cursor.getDouble(4),
                         cursor.getString(5),
                         cursor.getString(6),
@@ -198,5 +207,30 @@ public class KeHoachSql extends SQLiteOpenHelper {
                 list.add(keHoach);
             }
         return list;
+    }
+
+    public int getKeHoach(String maKH, int hoanthanh) throws ParseException {
+        ArrayList<KeHoach> list = new ArrayList<>();
+        //câu truy vấn
+        String sql = "Select * from " + TableName +" where MaKH=\'" +maKH +"\'"+" and HoanThanh=" + hoanthanh;
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                KeHoach keHoach = new KeHoach(cursor.getInt(0),
+                        cursor.getString(1),
+                        (Date) new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(2)),
+                        (Date) new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(3)),
+                        cursor.getDouble(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7)
+                );
+                list.add(keHoach);
+            }
+        return list.size();
     }
 }

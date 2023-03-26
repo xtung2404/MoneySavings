@@ -15,71 +15,75 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Tiền vào"
+                    android:textColor="@color/gray"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/tvTienVao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="0"
+                    android:gravity="end"
+                    android:textColor="@color/orange"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Tiền ra"
+                    android:textColor="@color/gray"
+                    android:textSize="18dp" />
+                <TextView
+                    android:id="@+id/tvTienRa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:gravity="end"
+                    android:text="0"
+                    android:textColor="#ff0000"
+                    android:textSize="18dp" />
+            </LinearLayout>
 
+            <View
+                android:layout_width="100dp"
+                android:layout_height="2dp"
+                android:layout_gravity="end"
+                android:background="@color/gray"/>
             <TextView
+                android:id="@+id/tvTongTien"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Tiền vào"
-                android:textColor="@color/gray"
-                android:textSize="18dp"/>
-            <TextView
-                android:id="@+id/tvTienVao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="0"
                 android:gravity="end"
-                android:textColor="@color/orange"
-                android:textSize="18dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Tiền ra"
-                android:textColor="@color/gray"
-                android:textSize="18dp" />
-            <TextView
-                android:id="@+id/tvTienRa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:gravity="end"
-                android:text="0"
-                android:textColor="#ff0000"
-                android:textSize="18dp" />
+                android:layout_gravity="end"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:text="2000"
+                android:padding="10dp"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="100dp"
-            android:layout_height="2dp"
-            android:layout_gravity="end"
-            android:background="@color/gray"/>
-        <TextView
-            android:id="@+id/tvTongTien"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="end"
-            android:layout_gravity="end"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:text="2000"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvSoGiaoDich"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_borders"
-            android:backgroundTint="@color/white"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvSoGiaoDich"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"/>
     </LinearLayout>
 
 </FrameLayout>

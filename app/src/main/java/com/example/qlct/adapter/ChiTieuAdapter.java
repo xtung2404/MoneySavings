@@ -36,11 +36,18 @@ public class ChiTieuAdapter extends RecyclerView.Adapter<ChiTieuAdapter.ChiTieuV
     @Override
     public void onBindViewHolder(@NonNull ChiTieuViewHolder holder, int position) {
         ChiTieu chitieu = mChiTieus.get(position);
-        //if(chitieu.getMaLoaiChiTieu() == 1) {
-            holder.imgItem.setImageResource(R.drawable.ic_add);
-        //}
-        holder.txtLoaiCT.setText(String.valueOf(chitieu.getMaLoaiCT()));
-        holder.txtNgayCT.setText(String.valueOf(chitieu.getTgCT()));
+        if(chitieu.getLoaiCT().contentEquals("Ăn uống")) {
+            holder.imgItem.setImageResource(R.drawable.ic_food);
+        }else if(chitieu.getLoaiCT().contentEquals("Du lịch")) {
+            holder.imgItem.setImageResource(R.drawable.ic_travel);
+        }
+        else if(chitieu.getLoaiCT().contentEquals("Tiền nhà")){
+            holder.imgItem.setImageResource(R.drawable.ic_house);
+        }
+        else {
+            holder.imgItem.setImageResource(R.drawable.ic_bike);
+        }
+        holder.txtCTName.setText(String.valueOf(chitieu.getLoaiCT()));
         holder.txtTienCT.setText(String.valueOf(chitieu.getSoTien()));
     }
 
@@ -52,13 +59,12 @@ public class ChiTieuAdapter extends RecyclerView.Adapter<ChiTieuAdapter.ChiTieuV
 
     public class ChiTieuViewHolder extends RecyclerView.ViewHolder{
         private ImageView imgItem;
-        private TextView txtLoaiCT, txtNgayCT, txtTienCT;
+        private TextView txtCTName, txtTienCT;
         public ChiTieuViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgItem = itemView.findViewById(R.id.imgItem);
-            txtLoaiCT = itemView.findViewById(R.id.txtLoaiCT);
-            txtNgayCT = itemView.findViewById(R.id.txtNgayCT);
-            txtTienCT = itemView.findViewById(R.id.txtTienCT);
+            imgItem = itemView.findViewById(R.id.imgLoaiCT);
+            txtCTName = itemView.findViewById(R.id.txtChiTieuName);
+            txtTienCT = itemView.findViewById(R.id.txtChiTieuMoney);
         }
     }
 }

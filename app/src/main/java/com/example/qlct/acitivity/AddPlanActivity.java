@@ -89,9 +89,11 @@ public class AddPlanActivity extends AppCompatActivity {
                     String tenKH = binding.edtTenKeHoach.getText().toString().trim();
                     Double hanMuc = Double.parseDouble(binding.edtHanMuc.getText().toString().trim());
                     String GhiChu = binding.edtGhiChu.getText().toString().trim();
-                    keHoachSql.addKeHoach(new KeHoach(null, tenKH, dateBatDau, dateKetThuc, hanMuc, GhiChu, user.getEmail(), 0));
+                    keHoachSql.addKeHoach(new KeHoach(0, tenKH, dateBatDau, dateKetThuc, hanMuc, GhiChu, user.getEmail(), 0));
                     Toast.makeText(AddPlanActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                     finish();
+                } else {
+                    Toast.makeText(AddPlanActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
             }
         });

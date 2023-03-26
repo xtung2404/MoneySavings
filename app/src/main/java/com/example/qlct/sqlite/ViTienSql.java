@@ -53,7 +53,6 @@ public class ViTienSql extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(MaVi, viTien.getMaVi());
         value.put(LoaiVi, viTien.getLoaiVi());
         value.put(SoTien, viTien.getSoTien());
         value.put(MaKH, viTien.getMaKH());
@@ -73,13 +72,13 @@ public class ViTienSql extends SQLiteOpenHelper {
                 new String[]{String.valueOf(viTien.getMaVi())});
         db.close();
     }
-    public void updateTienTangGiam( Double tien,int id )
+    public void updateTienTangGiam( Double tien,String maKH)
     {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(SoTien, tien);
-        db.update(TableName, value,MaVi + " =? ",
-                new String[]{String.valueOf(id)});
+        db.update(TableName, value,MaKH + " =? ",
+                new String[]{maKH});
         db.close();
     }
     public void deleteViTien(int id)
@@ -95,7 +94,7 @@ public class ViTienSql extends SQLiteOpenHelper {
     public ArrayList<ViTien> getViTien(String maKH) throws ParseException {
         ArrayList<ViTien> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName + " where Isdeleted=1 and MaKH="+maKH;
+        String sql = "Select * from " + TableName + " where MaKH=\'"+maKH + "\'";
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor
@@ -112,5 +111,29 @@ public class ViTienSql extends SQLiteOpenHelper {
                 list.add(viTien);
             }
         return list;
+    }
+    public boolean hasViTien(String maKH) throws ParseException {
+        ArrayList<ViTien> list = new ArrayList<>();
+        //câu truy vấn
+        String sql = "Select * from " + TableName + " where MaKH=\'"+maKH + "\'";
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+        //tạo ArrayList<Contact> để trả về;
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                ViTien viTien = new ViTien(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getDouble(2),
+                        cursor.getString(3)
+                );
+                list.add(viTien);
+            }
+        if(list.size() == 0) {
+            return false;
+        }
+        return true;
     }
 }

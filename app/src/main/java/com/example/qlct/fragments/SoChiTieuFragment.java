@@ -15,8 +15,12 @@ import com.example.qlct.R;
 import com.example.qlct.adapter.ViewStateAdapter;
 import com.example.qlct.databinding.FragmentSoChiTieuBinding;
 import com.example.qlct.databinding.FragmentSoChiTieuViewBinding;
+import com.example.qlct.sqlite.ViTienSql;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +29,8 @@ public class SoChiTieuFragment extends Fragment {
     ArrayList<String> listVi = new ArrayList<>();
     Calendar c;
     Bundle bundle;
+    ViTienSql viTienSql;
+    FirebaseAuth auth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,6 +40,14 @@ public class SoChiTieuFragment extends Fragment {
         return view;
     }
     private void initView(){
+        viTienSql = new ViTienSql(getActivity(), ViTienSql.TableName, null, 1);
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+//        try {
+//            binding.txtSoDu.setText(String.valueOf(viTienSql.getViTien(user.getEmail()).get(0).getSoTien()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         binding.tablayoutCT.addTab(binding.tablayoutCT.newTab().setText("Tháng trước"));
         binding.tablayoutCT.addTab(binding.tablayoutCT.newTab().setText("Hiện tại"));
         binding.tablayoutCT.addTab(binding.tablayoutCT.newTab().setText("Tương lai"));
@@ -62,7 +76,15 @@ public class SoChiTieuFragment extends Fragment {
                         replaceFragment(new SoChiTieuViewFragment(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 } else {
                     c = Calendar.getInstance();
-                    replaceFragment(new SoChiTieuViewFragment(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                    int month = c.get(Calendar.MONTH);
+                    int year = c.get(Calendar.YEAR);
+                    if (month == 12) {
+                        month = 1;
+                        year++;
+                    } else {
+                        month = month + 1;
+                    }
+                    replaceFragment(new SoChiTieuViewFragment(), month, year);
                 }
             }
 

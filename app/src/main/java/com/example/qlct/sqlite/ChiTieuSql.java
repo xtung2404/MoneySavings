@@ -1,5 +1,6 @@
 package com.example.qlct.sqlite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import com.example.qlct.model.ChiTieu;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ChiTieuSql extends SQLiteOpenHelper {
     private Context context;
@@ -18,8 +20,8 @@ public class ChiTieuSql extends SQLiteOpenHelper {
     //tên các cột trong bảng
     public static final String MaChiTieu = "MaChiTieu";
     public static final String SoTien = "SoTien";
-    public static final String MaVi = "MaVi";
-    public static final String MaLoaiCT = "MaLoaiCT";
+    public static final String MaKH = "MaKH";
+    public static final String LoaiCT = "LoaiCT";
     public static final String ThoiGianCT = "ThoiGianCT";
     public static final String GhiChu = "GhiChu";
     public static final String IsDeleted = "IsDeleted";
@@ -35,8 +37,8 @@ public class ChiTieuSql extends SQLiteOpenHelper {
         String sqlCreate = "Create table if not exists " + TableName + " ( "
                 + MaChiTieu + " Integer Primary key AUTOINCREMENT, "
                 + SoTien + " REAL, "
-                +MaVi+" Integer, "
-                +MaLoaiCT+" Integer, "
+                +MaKH+" Text, "
+                +LoaiCT+" Text, "
                 +ThoiGianCT+" Text, "
                 +GhiChu+" Text, "
                 + IsDeleted + " Integer ) ";
@@ -56,10 +58,9 @@ public class ChiTieuSql extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(MaChiTieu, chiTieu.getMaChiTieu());
         value.put(SoTien, chiTieu.getSoTien());
-        value.put(MaVi, chiTieu.getMaVi());
-        value.put(MaLoaiCT, chiTieu.getMaLoaiCT());
+        value.put(MaKH, chiTieu.getMaKH());
+        value.put(LoaiCT, chiTieu.getLoaiCT());
         value.put(ThoiGianCT, chiTieu.getTgCT().toString());
         value.put(GhiChu, chiTieu.getGhiChu());
         value.put(IsDeleted, 1);
@@ -71,8 +72,8 @@ public class ChiTieuSql extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(SoTien, chiTieu.getSoTien());
-        value.put(MaVi, chiTieu.getMaVi());
-        value.put(MaLoaiCT, chiTieu.getMaLoaiCT());
+        value.put(MaKH, chiTieu.getMaKH());
+        value.put(LoaiCT, chiTieu.getLoaiCT());
         value.put(ThoiGianCT, chiTieu.getTgCT().toString());
         value.put(GhiChu, chiTieu.getGhiChu());
         db.update(TableName, value,MaChiTieu + " =? ",
@@ -104,19 +105,19 @@ public class ChiTieuSql extends SQLiteOpenHelper {
             {
                 ChiTieu chiTieu = new ChiTieu(cursor.getInt(0),
                         cursor.getDouble(1),
-                        cursor.getInt(2),
-                        cursor.getInt(3),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(4)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(4)),
                         cursor.getString(5)
                 );
                 list.add(chiTieu);
             }
         return list;
     }
-    public ArrayList<ChiTieu> getTop5(int id) throws ParseException {
+    public ArrayList<ChiTieu> getTop5(String maKH) throws ParseException {
         ArrayList<ChiTieu> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaVi="+id+" order by MaChiTieu";
+        String sql = "Select * from " + TableName +" where MaKH=\'"+maKH + "\' order by MaChiTieu";
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor
@@ -124,14 +125,14 @@ public class ChiTieuSql extends SQLiteOpenHelper {
         //tạo ArrayList<Contact> để trả về;
         int i=0;
         if(cursor!=null)
-            while (cursor.moveToNext() && i<=5)
+            while (cursor.moveToNext() && i<5)
             {
                 i++;
                 ChiTieu chiTieu = new ChiTieu(cursor.getInt(0),
                         cursor.getDouble(1),
-                        cursor.getInt(2),
-                        cursor.getInt(3),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(4)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(4)),
                         cursor.getString(5)
                 );
                 list.add(chiTieu);
@@ -139,10 +140,11 @@ public class ChiTieuSql extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<ChiTieu> getMonthChiTieu(int id, int Month) throws ParseException {
+    public ArrayList<ChiTieu> getMonthChiTieu(String MaKH, int Month) throws ParseException {
         ArrayList<ChiTieu> list = new ArrayList<>();
         //câu truy vấn
-        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaChiTieu="+id +" and ThoiGianCT like %/"+Month+"/% order by MaChiTieu";
+        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKH=\'"+MaKH + "\'" + "and cast(STRFTIME(\'%m\', ThoiGianCT) as Integer) ="+Month;
+//                +" and ThoiGianCT like %" + Month + "% order by MaChiTieu";
         //lấy đối tượng csdl sqlite
         SQLiteDatabase db = this.getReadableDatabase();
         //chạy câu truy vấn trả về dạng Cursor
@@ -153,13 +155,39 @@ public class ChiTieuSql extends SQLiteOpenHelper {
             {
                 ChiTieu chiTieu = new ChiTieu(cursor.getInt(0),
                         cursor.getDouble(1),
-                        cursor.getInt(2),
-                        cursor.getInt(3),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(4)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(4)),
                         cursor.getString(5)
                 );
                 list.add(chiTieu);
             }
         return list;
+    }
+    //quangcc
+    public double getMoneyInMonthCT(String MaKH, int Month) throws ParseException {
+        ArrayList<ChiTieu> list = new ArrayList<>();
+        double tongTien = 0;
+        //câu truy vấn
+        String sql = "Select * from " + TableName +" where MaKH=\'"+MaKH + "\'" + " and cast(STRFTIME('%m', ThoiGianCT) as Integer) =" +Month;
+               // "CAST(ThoiGianCT as TEXT) like '%"+Month+"%' order by MaChiTieu";
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+        //tạo ArrayList<Contact> để trả về;
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                 ChiTieu chiTieu = new ChiTieu(cursor.getInt(0),
+                        cursor.getDouble(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(4)),
+                        cursor.getString(5)
+                );
+                tongTien += chiTieu.getSoTien();
+            }
+        return tongTien;
     }
 }

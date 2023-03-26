@@ -6,16 +6,16 @@ import java.util.Date;
 public class ChiTieu implements Serializable {
     private int maChiTieu;
     private double soTien;
-    private int maVi;
-    private int maLoaiCT;
+    private String maKH;
+    private String loaiCT;
     private Date tgCT;
     private String ghiChu;
 
-    public ChiTieu(int maChiTieu, double soTien, int maVi, int maLoaiCT, Date tgCT, String ghiChu) {
+    public ChiTieu(int maChiTieu, double soTien, String maKH, String loaiCT, Date tgCT, String ghiChu) {
         this.maChiTieu = maChiTieu;
         this.soTien = soTien;
-        this.maVi = maVi;
-        this.maLoaiCT = maLoaiCT;
+        this.maKH = maKH;
+        this.loaiCT = loaiCT;
         this.tgCT = tgCT;
         this.ghiChu = ghiChu;
     }
@@ -36,20 +36,20 @@ public class ChiTieu implements Serializable {
         this.soTien = soTien;
     }
 
-    public int getMaVi() {
-        return maVi;
+    public String getMaKH() {
+        return maKH;
     }
 
-    public void setMaVi(int maVi) {
-        this.maVi = maVi;
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
     }
 
-    public int getMaLoaiCT() {
-        return maLoaiCT;
+    public String getLoaiCT() {
+        return loaiCT;
     }
 
-    public void setMaLoaiCT(int maLoaiCT) {
-        this.maLoaiCT = maLoaiCT;
+    public void setLoaiCT(String loaiCT) {
+        this.loaiCT = loaiCT;
     }
 
     public Date getTgCT() {

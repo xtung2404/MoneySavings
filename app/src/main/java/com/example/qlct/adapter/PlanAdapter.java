@@ -43,6 +43,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         KeHoach mPlan = mPlans.get(position);
         holder.txtPlanName.setText(mPlan.getTenKeHoach());
         holder.txtPlanMoney.setText(String.valueOf(mPlan.getHanMuc()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnClickListener.onClickListener(mPlan.getMaKeHoach());
+            }
+        });
     }
 
     @Override
@@ -57,12 +63,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             super(itemView);
             txtPlanName = itemView.findViewById(R.id.txtPlanName);
             txtPlanMoney = itemView.findViewById(R.id.txtPlanMoney);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnClickListener.onClickListener(getAdapterPosition());
-                }
-            });
         }
     }
 }

@@ -10,8 +10,8 @@
     </string-array>
     <string-array name="listCheDo">
         <item>Chọn chế độ</item>
-        <item>Thu tiền</item>
-        <item>Chi Tiền</item>
+        <item>Thu nhập</item>
+        <item>Chi tiêu</item>
     </string-array>
     <string-array name="listLoaiCT">
         <item>Chọn loại chi tiêu</item>

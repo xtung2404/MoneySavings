@@ -5,14 +5,14 @@ import java.util.Date;
 public class ThuNhap {
     private  int MaThuNhap;
     private double SoTien;
-    private  String MaVi;
+    private  String MaKH;
     private Date ThoiGianTN;
     private String GhiChu;
 
-    public ThuNhap(int maThuNhap, double soTien, String maVi, Date thoiGianTN, String ghiChu) {
+    public ThuNhap(int maThuNhap, double soTien, String maKH, Date thoiGianTN, String ghiChu) {
         MaThuNhap = maThuNhap;
         SoTien = soTien;
-        MaVi = maVi;
+        MaKH = maKH;
         ThoiGianTN = thoiGianTN;
         GhiChu = ghiChu;
     }
@@ -33,12 +33,12 @@ public class ThuNhap {
         SoTien = soTien;
     }
 
-    public String getMaVi() {
-        return MaVi;
+    public String getMaKH() {
+        return MaKH;
     }
 
-    public void setMaVi(String maVi) {
-        MaVi = maVi;
+    public void setMaKH(String maKH) {
+        MaKH = maKH;
     }
 
     public Date getThoiGianTN() {

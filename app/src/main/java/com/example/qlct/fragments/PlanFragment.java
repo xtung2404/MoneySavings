@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -42,15 +45,14 @@ public class PlanFragment extends Fragment {
     private ArrayList<KeHoach> mPlans;
     private PieData pieData;
     private PieDataSet pieDataSet;
-    private ArrayList pieEntriesArrayList;
+    FirebaseAuth auth;
+    FirebaseUser user;
     KeHoachSql keHoachSql;
     private OnClickListener mOnClickListener = new OnClickListener() {
         @Override
         public void onClickListener(int position) {
             Intent intent = new Intent(getActivity(), PlanDetailAcitivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("item", mPlans.get(position).getMaKeHoach());
-            intent.putExtras(bundle);
+            intent.putExtra("item", position);
             startActivity(intent);
         }
     };
@@ -65,10 +67,12 @@ public class PlanFragment extends Fragment {
     }
     private void initView() {
         keHoachSql = new KeHoachSql(getActivity(), KeHoachSql.TableName, null, 1);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         getPieEntries();
         pieData = new PieData(pieDataSet);
         binding.planChart.setData(pieData);
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         pieDataSet.setValueTextColor(Color.BLACK);
 
         // setting text size
@@ -78,9 +82,9 @@ public class PlanFragment extends Fragment {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Đã hoàn thành"));
         mPlans = new ArrayList<>();
         try {
-            mPlans = keHoachSql.getListKeHoach(0);
+            mPlans = keHoachSql.getListKeHoach(user.getEmail(), 0);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("error", e.getLocalizedMessage());
         }
         mPlanAdapter = new PlanAdapter(getContext(), mPlans, mOnClickListener);
         binding.rvKeHoach.setAdapter(mPlanAdapter);
@@ -115,8 +119,10 @@ public class PlanFragment extends Fragment {
                 if(tab.getText() == "Chưa hoàn thành") {
                     initData(0);
                 }
-                else {
+                else if (tab.getText() == "Đã hoàn thành"){
                     initData(1);
+                } else {
+                    return;
                 }
             }
 
@@ -132,11 +138,28 @@ public class PlanFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData(0);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData(0);
+    }
+
     private void getPieEntries() {
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
-        float[] yData = { 15, 35 };
-        String[] xData = { "Chưa hoàn thành", "Hofàn thành"};
+        float[] yData = new float[0];
+        try {
+            yData = new float[]{keHoachSql.getKeHoach(user.getEmail(), 0), keHoachSql.getKeHoach(user.getEmail(),1)};
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String[] xData = { "Chưa hoàn thành", "Hoàn thành"};
 
         for (int i = 0; i < yData.length;i++){
             yEntrys.add(new PieEntry(yData[i],i));
@@ -148,10 +171,10 @@ public class PlanFragment extends Fragment {
     }
     private void initData(int hoanthanh) {
         try {
-            mPlans = keHoachSql.getListKeHoach(hoanthanh);
+            mPlans = keHoachSql.getListKeHoach(user.getEmail(), hoanthanh);
             mPlanAdapter.notifyDataSetChanged();
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("errorinit", e.getLocalizedMessage());
         }
     }
 }

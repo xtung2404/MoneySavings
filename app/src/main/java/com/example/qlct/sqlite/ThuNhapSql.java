@@ -1,5 +1,6 @@
 package com.example.qlct.sqlite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import com.example.qlct.model.ThuNhap;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ThuNhapSql extends SQLiteOpenHelper {
 
@@ -19,7 +21,7 @@ public class ThuNhapSql extends SQLiteOpenHelper {
     //tên các cột trong bảng
     public static final String MaThuNhap = "MaThuNhap";
     public static final String SoTien = "SoTien";
-    public static final String MaVi = "MaVi";
+    public static final String MaKH = "MaKH";
     public static final String ThoiGianTN = "ThoiGianTN";
     public static final String GhiChu = "GhiChu";
     public static final String IsDeleted = "IsDeleted";
@@ -35,7 +37,7 @@ public class ThuNhapSql extends SQLiteOpenHelper {
         String sqlCreate = "Create table if not exists " + TableName + " ( "
                 + MaThuNhap + " Integer Primary key AUTOINCREMENT, "
                 + SoTien + " REAL, "
-                +MaVi+" Integer, "
+                +MaKH+" Text, "
                 +ThoiGianTN+" Text, "
                 +GhiChu+" Text, "
                 + IsDeleted + " Integer ) ";
@@ -57,7 +59,7 @@ public class ThuNhapSql extends SQLiteOpenHelper {
         ContentValues value = new ContentValues();
         value.put(MaThuNhap, thuNhap.getMaThuNhap());
         value.put(SoTien, thuNhap.getSoTien());
-        value.put(MaVi, thuNhap.getMaVi());
+        value.put(MaKH, thuNhap.getMaKH());
         value.put(ThoiGianTN, thuNhap.getThoiGianTN().toString());
         value.put(GhiChu, thuNhap.getGhiChu());
         value.put(IsDeleted, 1);
@@ -70,7 +72,7 @@ public class ThuNhapSql extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(SoTien, thuNhap.getSoTien());
-        value.put(MaVi, thuNhap.getMaVi());
+        value.put(MaKH, thuNhap.getMaKH());
         value.put(ThoiGianTN, thuNhap.getThoiGianTN().toString());
         value.put(GhiChu, thuNhap.getGhiChu());
         db.update(TableName, value,MaThuNhap + " =? ",
@@ -102,11 +104,59 @@ public class ThuNhapSql extends SQLiteOpenHelper {
                 ThuNhap thuNhap = new ThuNhap(cursor.getInt(0),
                         cursor.getDouble(1),
                         cursor.getString(2),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(3)),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(3)),
                         cursor.getString(4)
                 );
                 list.add(thuNhap);
             }
         return list;
+    }
+    public ArrayList<ThuNhap> getMonthThuNhap(String MaKH, int Month) throws ParseException {
+        ArrayList<ThuNhap> list = new ArrayList<>();
+        //câu truy vấn
+        String sql = "Select * from " + TableName +" where Isdeleted=1 and MaKH="+MaKH
+                +" and ThoiGianTN like %/"+Month+"/% order by MaChiTieu";
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+        //tạo ArrayList<Contact> để trả về;
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                ThuNhap thuNhap = new ThuNhap(cursor.getInt(0),
+                        cursor.getDouble(1),
+                        cursor.getString(2),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(3)),
+                        cursor.getString(4)
+                );
+                list.add(thuNhap);
+            }
+        return list;
+    }
+    //quangcc
+    public double getMoneyInMonthTN(String maKH, int Month) throws ParseException {
+        ArrayList<ThuNhap> list = new ArrayList<>();
+        double tongTien = 0;
+        //câu truy vấn
+        String sql = "Select * from " + TableName +" where MaKH=\'"+maKH +"\'" + "and cast(STRFTIME(\'%m\', ThoiGianTN) as Integer) ="+Month;
+//        +" and ThoiGianTN like %/"+Month+"/% order by MaChiTieu";
+        //lấy đối tượng csdl sqlite
+        SQLiteDatabase db = this.getReadableDatabase();
+        //chạy câu truy vấn trả về dạng Cursor
+        Cursor cursor = db.rawQuery(sql,null);
+        //tạo ArrayList<Contact> để trả về;
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                @SuppressLint("SimpleDateFormat") ThuNhap thuNhap = new ThuNhap(cursor.getInt(0),
+                        cursor.getDouble(1),
+                        cursor.getString(2),
+                        new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.getDefault()).parse(cursor.getString(3)),
+                        cursor.getString(4)
+                );
+                tongTien += thuNhap.getSoTien();
+            }
+        return tongTien;
     }
 }
