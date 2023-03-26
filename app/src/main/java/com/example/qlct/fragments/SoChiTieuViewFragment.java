@@ -34,28 +34,38 @@ public class SoChiTieuViewFragment extends Fragment {
     ChiTieuSql chiTieuSql;
     ThuNhapSql thuNhapSql;
     FirebaseAuth auth;
+    FirebaseUser user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_so_chi_tieu_view, container, false);
         binding = FragmentSoChiTieuViewBinding.bind(view);
-        initData();
+        getData();
         initView();
+        initData();
         return view;
     }
     private void initView(){
         chiTieuSql = new ChiTieuSql(getActivity(), ChiTieuSql.TableName,null, 1);
         thuNhapSql = new ThuNhapSql(getActivity(), ThuNhapSql.TableName,null, 1);
         auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        user = auth.getCurrentUser();
+    }
+    private void getData() {
+        Bundle bundle = this.getArguments();
+        month = bundle.getInt("month");
+        year = bundle.getInt("year");
+        Toast.makeText(getActivity(), String.valueOf(month), Toast.LENGTH_SHORT).show();
+    }
+    private void initData() {
         try {
             soChiTieus = chiTieuSql.getMonthChiTieu(user.getEmail(), month);
+            ctAdapter = new ChiTieuAdapter(getActivity(), soChiTieus);
+            binding.rcvSoGiaoDich.setAdapter(ctAdapter);
+            binding.rcvSoGiaoDich.setLayoutManager(new LinearLayoutManager(getActivity()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        ctAdapter = new ChiTieuAdapter(getActivity(), soChiTieus);
-        binding.rcvSoGiaoDich.setAdapter(ctAdapter);
-        binding.rcvSoGiaoDich.setLayoutManager(new LinearLayoutManager(getActivity()));
         try {
             binding.tvTienVao.setText(String.valueOf(thuNhapSql.getMoneyInMonthTN(user.getEmail(), month)));
         } catch (ParseException e) {
@@ -78,11 +88,10 @@ public class SoChiTieuViewFragment extends Fragment {
             e.printStackTrace();
         }
     }
-    private void initData() {
-        Bundle bundle = this.getArguments();
-        month = bundle.getInt("month");
-        year = bundle.getInt("year");
-        Toast.makeText(getActivity(), String.valueOf(month), Toast.LENGTH_SHORT).show();
-    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
 }

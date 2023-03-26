@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     ViTienSql viTienSql;
     ChiTieuSql chiTieuSql;
     FirebaseAuth auth;
+    FirebaseUser user;
     Calendar c;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment {
         viTienSql = new ViTienSql(getActivity(), ViTienSql.TableName, null, 1);
         chiTieuSql = new ChiTieuSql(getActivity(), ChiTieuSql.TableName, null, 1);
         auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        user = auth.getCurrentUser();
         try {
             if(!viTienSql.hasViTien(user.getEmail())){
                 viTienSql.addViTien(new ViTien(0, "Vi" + user.getEmail(), 0, user.getEmail()));
@@ -63,21 +64,20 @@ public class HomeFragment extends Fragment {
         } catch (ParseException e) {
             Log.d("error", e.getLocalizedMessage());
         }
+        mChiTieus = new ArrayList<>();
+        ctAdapter = new ChiTieuAdapter(getActivity(), mChiTieus);
+        binding.rvChiTieu.setAdapter(ctAdapter);
+        binding.rvChiTieu.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        initData();
+    }
+    private void initData() {
         try {
             binding.tvTTC.setText(String.valueOf(viTienSql.getViTien(user.getEmail()).get(0).getSoTien()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        mChiTieus = new ArrayList<>();
-        try {
-            mChiTieus = chiTieuSql.getTop5(user.getEmail());
-        } catch (ParseException e) {
-            Log.d("error", e.getLocalizedMessage());
-        }
-        ctAdapter = new ChiTieuAdapter(getActivity(), mChiTieus);
-        binding.rvChiTieu.setAdapter(ctAdapter);
-        binding.rvChiTieu.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        initChiTieu();
         c = Calendar.getInstance();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         try {
@@ -101,5 +101,21 @@ public class HomeFragment extends Fragment {
         // Set animation
 //        binding.chartTC.animateY(2000);
         binding.chartTC.setDescription(null);
+    }
+    private void initChiTieu() {
+        try {
+            mChiTieus = chiTieuSql.getTop5(user.getEmail());
+        } catch (ParseException e) {
+            Log.d("error", e.getLocalizedMessage());
+        }
+        ctAdapter = new ChiTieuAdapter(getActivity(), mChiTieus);
+        binding.rvChiTieu.setAdapter(ctAdapter);
+        binding.rvChiTieu.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
     }
 }

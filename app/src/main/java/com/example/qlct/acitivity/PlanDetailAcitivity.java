@@ -57,11 +57,9 @@ public class PlanDetailAcitivity extends AppCompatActivity {
         binding.txtNgayBatDau.setText(mPlan.getThoiGianBatDau().toString());
         binding.txtNgayKetThuc.setText(mPlan.getThoiGianKetThuc().toString());
         if (mPlan.getHoanThanh() == 0) {
-            binding.btnHoanThanh.setText(String.valueOf(mPlan.getHoanThanh()));
-            binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.gray));
+            binding.btnHoanThanh.setText("Chưa hoàn thành");
         } else {
-            binding.btnHoanThanh.setText(String.valueOf(mPlan.getHoanThanh()));
-            binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.orange));
+            binding.btnHoanThanh.setText("Đã hoàn thành");
         }
         setUneditableItem();
         binding.btnCloseDetail.setOnClickListener(new View.OnClickListener() {
@@ -92,13 +90,11 @@ public class PlanDetailAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mPlan.getHoanThanh() == 1) {
-                    binding.btnHoanThanh.setText(String.valueOf(mPlan.getHoanThanh()));
-                    binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.gray));
+                    binding.btnHoanThanh.setText("Chưa hoàn thành");
                     mPlan.setHoanThanh(0);
                     keHoachSql.updateKeHoachID(mPlan.getMaKeHoach(), 0);
                 } else {
-                    binding.btnHoanThanh.setText(String.valueOf(mPlan.getHoanThanh()));
-                    binding.btnHoanThanh.setBackgroundColor(getResources().getColor(R.color.orange));
+                    binding.btnHoanThanh.setText("Hoàn thành");
                     mPlan.setHoanThanh(1);
                     keHoachSql.updateKeHoachID(mPlan.getMaKeHoach(), 1);
                     try {

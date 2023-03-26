@@ -94,6 +94,7 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="italic"
+            android:visibility="visible"
             android:layout_marginTop="10dp"/>
 
         <EditText
@@ -104,7 +105,9 @@
             android:paddingLeft="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_borders"
-            android:backgroundTint="@color/gray"/>
+            android:backgroundTint="@color/gray"
+            android:visibility="visible"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

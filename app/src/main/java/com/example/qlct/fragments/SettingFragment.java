@@ -29,6 +29,13 @@ public class SettingFragment extends Fragment {
         showUserInformation();
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showUserInformation();
+    }
+
     private void initView() {
         binding.btnHoTro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +61,14 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ProfileDetailActivity.class));
+            }
+        });
+        binding.txtSDT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("tel:"+ binding.txtSDT.getText()));
+                getActivity().startActivity(intent1);
             }
         });
     }
