@@ -11,4 +11,6 @@
     <color name="orange">#ff7846</color>
     <color name="green">#7cd76d</color>
     <color name="blur_yellow">#faf8f6</color>
+    <color name="blur">#212230</color>
+    <color name="dark_blue">#3d737f</color>
 </resources>

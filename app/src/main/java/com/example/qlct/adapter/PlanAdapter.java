@@ -34,7 +34,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @NonNull
     @Override
     public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.plan_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.layout_item_plan, parent, false);
         return new PlanViewHolder(view);
     }
 

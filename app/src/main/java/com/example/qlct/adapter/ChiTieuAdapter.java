@@ -29,7 +29,7 @@ public class ChiTieuAdapter extends RecyclerView.Adapter<ChiTieuAdapter.ChiTieuV
     @NonNull
     @Override
     public ChiTieuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.chitieu_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.layout_item_transaction, parent, false);
         return new ChiTieuViewHolder(view);
     }
 

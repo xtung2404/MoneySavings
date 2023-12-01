@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.qlct.R;
 import com.example.qlct.databinding.ActivityAddChiTieuBinding;
-import com.example.qlct.databinding.ActivityPlanDetailAcitivityBinding;
+//import com.example.qlct.databinding.ActivityPlanDetailAcitivityBinding;
 import com.example.qlct.model.KeHoach;
 import com.example.qlct.sqlite.KeHoachSql;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +26,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 public class PlanDetailAcitivity extends AppCompatActivity {
-    ActivityPlanDetailAcitivityBinding binding;
+   /* ActivityPlanDetailAcitivityBinding binding;
     int makh = 0;
     private KeHoach mPlan;
     private Calendar c;
@@ -146,5 +146,5 @@ public class PlanDetailAcitivity extends AppCompatActivity {
         binding.edtGhiChu.setEnabled(false);
         binding.txtNgayBatDau.setClickable(false);
         binding.txtNgayKetThuc.setClickable(false);
-    }
+    }*/
 }
