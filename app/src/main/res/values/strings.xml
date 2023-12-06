@@ -9,6 +9,28 @@
     <string name="hello">Hello bruhh</string>
     <string name="recent_transaction">Giao dịch gần đây</string>
     <string name="monthly_report">Báo cáo hàng tháng</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="do_not_have_account">Bạn chưa có tài khoản?</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="re_enter_password">Nhập lại mật khẩu</string>
+    <string name="welcome_back">Chào mừng trở lại</string>
+    <string name="fill_in_your_info">Hãy nhập thông tin của bạn</string>
+    <string name="already_have_account">Bạn đã có tài khoản?</string>
+    <string name="to_continue">Tiếp tục</string>
+    <string name="input">Tiền vào</string>
+    <string name="output">Tiền ra</string>
+    <string name="transaction">Giao dịch</string>
+    <string name="account_management">Quản lý tài khoản</string>
+    <string name="setting">Cài đặt</string>
+    <string name="support">Hỗ trợ</string>
+    <string name="introduce">Giới thiệu</string>
+    <string name="plan_name">Tên kế hoạch</string>
+    <string name="han_muc">Hạn mức</string>
+    <string name="select_date_start">Chọn ngày bắt đầu</string>
+    <string name="note">Ghi chú</string>
+    <string name="select_date_end">Chọn ngày kết thúc</string>
     <string-array name="listVi">
         <item>Chọn ví</item>
         <item>Ngân hàng</item>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".old.acitivity.AddChiTieuActivity"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_han_muc"
+                    android:hint="@string/han_muc"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/bg_border_black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spn_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"
+                android:background="@drawable/bg_border_black"
+                android:layout_marginTop="20dp"
+                android:paddingVertical="@dimen/_20sdp"/>
+
+            <Spinner
+                android:id="@+id/spn_transaction_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"
+                android:background="@drawable/bg_border_black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:paddingVertical="@dimen/_20sdp"/>
+
+            <TextView
+                android:id="@+id/txt_select_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/select_date_start"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"
+                android:background="@drawable/bg_border_black"
+                android:paddingVertical="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:paddingStart="@dimen/_5sdp"/>
+
+            <EditText
+                android:id="@+id/edt_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/note"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"
+                android:background="@drawable/bg_border_black"
+                android:paddingVertical="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:paddingStart="@dimen/_5sdp"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_continue"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:id="@+id/btn_continue"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+</layout>
