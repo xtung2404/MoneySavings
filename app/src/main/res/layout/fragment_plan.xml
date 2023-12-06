@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.PlanFragment"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:paddingHorizontal="20dp">
-    <com.github.mikephil.charting.charts.PieChart
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:id="@+id/planChart"
-        android:layout_gravity="center_horizontal"/>
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_topleft_topright"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:tabSelectedTextColor="@color/color_item_tab"
-        app:tabBackground="@drawable/bg_button"
-        app:tabIndicatorHeight="0dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvKeHoach"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/layout_item_plan"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        tools:context=".old.fragments.PlanFragment"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingHorizontal="20dp">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:id="@+id/planChart"
+            android:layout_gravity="center_horizontal" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_topleft_topright"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:tabSelectedTextColor="@color/color_item_tab"
+            app:tabBackground="@drawable/bg_button"
+            app:tabIndicatorHeight="0dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_plan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/layout_item_plan" />
+    </LinearLayout>
+</layout>
