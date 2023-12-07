@@ -1,12 +1,12 @@
-package com.example.qlct;
+package com.example.qlct
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.qlct.databinding.ActivityMainBinding
+import com.example.qlct.renew.base.BaseActivity
 
-public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override val layoutId: Int
+        get() = R.layout.activity_main
+
 }

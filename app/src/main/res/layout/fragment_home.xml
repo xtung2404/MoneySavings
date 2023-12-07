@@ -114,12 +114,16 @@
                 android:fontFamily="@font/montserrat_regular"/>
 
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart_transaction"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_type_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                tools:itemCount="4"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/layout_item_money_type_transaction"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -134,8 +138,8 @@
                 android:id="@+id/rv_transaction"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/layout_item_transaction"/>
         </LinearLayout>
 
     </FrameLayout>

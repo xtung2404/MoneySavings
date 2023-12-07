@@ -8,7 +8,12 @@ class Wallet {
             _id = value
         }
 
-
+    private var _customerId: String?= ""
+    var customerId
+        get() = _customerId?: ""
+        set(value) {
+            _customerId = value
+        }
     private var _moneyAmount: Long?= 0
     var moneyAmount
         get() = _moneyAmount ?: 0

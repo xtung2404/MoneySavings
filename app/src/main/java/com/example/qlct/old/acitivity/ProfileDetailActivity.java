@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.qlct.MainActivity;
 import com.example.qlct.R;
-import com.example.qlct.databinding.ActivityAddChiTieuBinding;
 //import com.example.qlct.databinding.ActivityProfileDetailBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

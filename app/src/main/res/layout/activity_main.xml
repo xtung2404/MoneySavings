@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/blur_yellow">
-        <FrameLayout
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <data>
+
+        </data>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/frame_layout"/>
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="wrap_content"
-            android:layout_height="?attr/actionBarSize"
-            android:id="@+id/bottomNagivationView"
-            app:menu="@menu/bottombar_menu"
-            app:itemIconTint="@color/color_item_bottom"
-            app:itemTextColor="@color/color_item_bottom"
-            app:itemBackground="@drawable/bg_button"
-            android:layout_gravity="bottom"
-            app:labelVisibilityMode="unlabeled"
-            android:background="@drawable/bg_corners"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            tools:context=".MainActivity"
+            android:background="@color/blur_yellow"
+            android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".ui.FoodRecipeActivity"
+                    android:orientation="vertical">
+                        <androidx.fragment.app.FragmentContainerView
+                            android:id="@+id/fragmentContainerView"
+                            android:name="androidx.navigation.fragment.NavHostFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            app:defaultNavHost="true"
+                            app:navGraph="@navigation/main_nav" />
+
+                        <com.google.android.material.bottomnavigation.BottomNavigationView
+                            android:id="@+id/bottomNavigation"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:background="@drawable/bg_button"
+                            app:itemIconTint="@color/white"
+                            app:itemRippleColor="?android:colorControlHighlight"
+                            app:labelVisibilityMode="unlabeled"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:menu="@menu/bottombar_menu"/>
+                </LinearLayout>
+        </LinearLayout>
+</layout>

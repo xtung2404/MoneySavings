@@ -31,6 +31,7 @@
     <string name="select_date_start">Chọn ngày bắt đầu</string>
     <string name="note">Ghi chú</string>
     <string name="select_date_end">Chọn ngày kết thúc</string>
+    <string name="travel">Du lịch</string>
     <string-array name="listVi">
         <item>Chọn ví</item>
         <item>Ngân hàng</item>
