@@ -3,8 +3,120 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/logInActivity2">
+    app:startDestination="@id/navigation">
 
     <navigation android:id="@+id/navigation"
-        app:startDestination="@id/logInActivity"/>
+        app:startDestination="@id/signInFragment">
+        <fragment
+            android:id="@+id/signInFragment"
+            android:name="com.example.qlct.renew.UI.SignInFragment"
+            android:label="SignInFragment">
+            <action
+                android:id="@+id/action_signInFragment_to_signUpFragment"
+                app:destination="@id/signUpFragment" />
+            <action
+                android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+                app:destination="@id/forgotPasswordFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/signUpFragment"
+            android:name="com.example.qlct.renew.UI.SignUpFragment"
+            android:label="SignUpFragment">
+            <action
+                android:id="@+id/action_signUpFragment_to_signInFragment"
+                app:destination="@id/navigation" />
+            <action
+                android:id="@+id/action_signUpFragment_to_signInFragment2"
+                app:destination="@id/signInFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/forgotPasswordFragment"
+            android:name="com.example.qlct.renew.UI.ForgotPasswordFragment"
+            android:label="ForgotPasswordFragment" >
+            <action
+                android:id="@+id/action_forgotPasswordFragment_to_signInFragment"
+                app:destination="@id/signInFragment" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_navigation2"
+            app:destination="@id/navigation2" />
+    </navigation>
+    <navigation android:id="@+id/navigation2"
+        app:startDestination="@id/homeFragment2">
+        <fragment
+            android:id="@+id/homeFragment2"
+            android:name="com.example.qlct.renew.UI.Home.HomeFragment"
+            android:label="HomeFragment">
+            <action
+                android:id="@+id/action_homeFragment2_to_transactionFragment"
+                app:destination="@id/transactionFragment" />
+            <action
+                android:id="@+id/action_homeFragment2_to_planFragment2"
+                app:destination="@id/planFragment2" />
+            <action
+                android:id="@+id/action_homeFragment2_to_settingFragment"
+                app:destination="@id/settingFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/transactionFragment"
+            android:name="com.example.qlct.renew.UI.TransactionFragment"
+            android:label="TransactionFragment">
+            <action
+                android:id="@+id/action_transactionFragment_to_addTransactionFragment"
+                app:destination="@id/addTransactionFragment" />
+            <action
+                android:id="@+id/action_transactionFragment_to_planFragment2"
+                app:destination="@id/planFragment2" />
+            <action
+                android:id="@+id/action_transactionFragment_to_settingFragment"
+                app:destination="@id/settingFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addTransactionFragment"
+            android:name="com.example.qlct.renew.UI.AddTransactionFragment"
+            android:label="AddTransactionFragment">
+            <action
+                android:id="@+id/action_addTransactionFragment_to_transactionFragment"
+                app:destination="@id/navigation2" />
+        </fragment>
+        <fragment
+            android:id="@+id/addPlanFragment"
+            android:name="com.example.qlct.renew.UI.AddPlanFragment"
+            android:label="AddPlanFragment">
+            <action
+                android:id="@+id/action_addPlanFragment_to_planFragment2"
+                app:destination="@id/planFragment2" />
+        </fragment>
+        <fragment
+            android:id="@+id/planFragment2"
+            android:name="com.example.qlct.renew.UI.PlanFragment"
+            android:label="PlanFragment">
+            <action
+                android:id="@+id/action_planFragment2_to_transactionFragment"
+                app:destination="@id/navigation2" />
+            <action
+                android:id="@+id/action_planFragment2_to_homeFragment2"
+                app:destination="@id/navigation2" />
+            <action
+                android:id="@+id/action_planFragment2_to_settingFragment"
+                app:destination="@id/settingFragment" />
+            <action
+                android:id="@+id/action_planFragment2_to_addPlanFragment"
+                app:destination="@id/navigation2" />
+        </fragment>
+        <fragment
+            android:id="@+id/settingFragment"
+            android:name="com.example.qlct.renew.UI.SettingFragment"
+            android:label="SettingFragment">
+            <action
+                android:id="@+id/action_settingFragment_to_homeFragment2"
+                app:destination="@id/navigation2" />
+            <action
+                android:id="@+id/action_settingFragment_to_transactionFragment"
+                app:destination="@id/navigation2" />
+            <action
+                android:id="@+id/action_settingFragment_to_planFragment2"
+                app:destination="@id/navigation2" />
+        </fragment>
+    </navigation>
 </navigation>

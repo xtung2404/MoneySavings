@@ -13,4 +13,6 @@
     <color name="blur_yellow">#faf8f6</color>
     <color name="blur">#212230</color>
     <color name="dark_blue">#3d737f</color>
+    <color name="light_gray">#eff0f5</color>
+    <color name="red">#d92a53</color>
 </resources>

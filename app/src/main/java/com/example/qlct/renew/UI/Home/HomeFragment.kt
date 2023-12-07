@@ -1,4 +1,4 @@
-package com.example.qlct.renew.UI
+package com.example.qlct.renew.UI.Home
 
 import com.example.qlct.R
 import com.example.qlct.databinding.FragmentHomeBinding
